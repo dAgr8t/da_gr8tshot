@@ -1,0 +1,59 @@
+/* =============================================================
+   base.css
+   Shared by every page: colours, reset, typography, layout
+   helpers, buttons and tags.
+   ============================================================= */
+
+/* ---- Colour tokens ----------------------------------------
+   Dark by default. If the visitor's device is set to light mode,
+   the light set below takes over. Change colours here only. */
+:root{--ink:#000000;--slate:#22262e;--bone:#ece7dd;--brass:#cfa75d;--mist:#8d93a0;--line:#2f343e;--on-brass:#15171c}
+@media (prefers-color-scheme:light){
+  :root:not([data-theme="dark"]){--ink:#f4f1ea;--slate:#e6e1d6;--bone:#1d2026;--brass:#8a6a2c;--mist:#5d6370;--line:#cfc9bb;--on-brass:#f4f1ea}
+}
+:root[data-theme="light"]{--ink:#f4f1ea;--slate:#e6e1d6;--bone:#1d2026;--brass:#8a6a2c;--mist:#5d6370;--line:#cfc9bb;--on-brass:#f4f1ea}
+:root[data-theme="dark"]{--ink:#15171c;--slate:#22262e;--bone:#ece7dd;--brass:#cfa75d;--mist:#8d93a0;--line:#2f343e;--on-brass:#15171c}
+
+/* ---- Reset and page defaults ---- */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:68px} /* 68px = sticky header height, so anchor links don't hide under it */
+body{margin:0;background:var(--ink);color:var(--bone);font:400 1.05rem/1.65 Figtree,system-ui,sans-serif}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+
+/* ---- Typography ---- */
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:400;line-height:1.1;margin:0 0 .6em}
+h1{font-size:clamp(2.6rem,7vw,5.5rem);letter-spacing:-.02em}
+h2{font-size:clamp(1.9rem,4vw,3rem)}
+h3{font-size:1.35rem}
+p{margin:0 0 1em;max-width:62ch;color:var(--mist)}
+
+/* ---- Layout helpers ---- */
+.wrap{max-width:1160px;margin:0 auto;padding:0 1.5rem}   /* centred content column */
+section{padding:5.5rem 0}
+.alt{background:var(--slate)}                              /* adds the slightly lighter band behind a section */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center} /* two-column row: picture + text */
+
+/* ---- Buttons ---- */
+.btn{display:inline-block;background:var(--brass);color:var(--on-brass);font:inherit;font-weight:600;padding:.85rem 1.6rem;border:0;border-radius:2px;text-decoration:none;cursor:pointer}
+.btn.ghost{background:none;color:var(--bone);border:1px solid var(--line)}
+.btn:hover{filter:brightness(1.08)}
+
+/* ---- Small label (e.g. "On site work") ---- */
+.tag{display:inline-block;font-size:.85rem;border:1px solid var(--line);border-radius:999px;padding:.15rem .7rem;color:var(--mist);margin-bottom:.8rem}
+
+/* ---- Scroll reveal: js/reveal.js adds .rv, then .in when the item scrolls into view ---- */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+
+/* ---- Small screens ---- */
+@media (max-width:860px){
+  section{padding:4rem 0}
+  .two{grid-template-columns:1fr;gap:2rem}
+}
+
+/* ---- Visitors who prefer less motion ---- */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none;transition:none}
+}

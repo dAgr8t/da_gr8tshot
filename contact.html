@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact | dA_gr8t Shot</title>
+<meta name="description" content="Request a quote for photography, videography or event coverage with dA_gr8t Shot.">
+<meta name="theme-color" content="#000000">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Contact | dA_gr8t Shot">
+<meta property="og:description" content="Request a quote for photography, videography or event coverage.">
+
+<!-- Favicon: a small gold lens icon built into the page. Replace with your own file when you have one. -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23000'/%3E%3Ccircle cx='32' cy='32' r='15' fill='none' stroke='%23cfa75d' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='4.5' fill='%23cfa75d'/%3E%3C/svg%3E">
+
+<!-- Fonts (Google Fonts) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Stylesheets: shared files first, then this page's own files -->
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/page-header.css">
+<link rel="stylesheet" href="css/contact.css">
+</head>
+<body data-page="contact">
+
+<!-- SITE HEADER: logo, menu and the header button are built by js/layout.js -->
+<header id="site-header"></header>
+
+<main class="ct">
+
+<!-- PAGE BANNER: title + breadcrumb over scrolling photo columns (columns are built by js/page-header.js) -->
+<section class="phero">
+  <div class="wrap">
+    <p class="crumb"><a href="index.html">Home</a><i class="sep"></i>Contact</p>
+    <h1>Contact</h1>
+  </div>
+  <div class="rows" aria-hidden="true"></div>
+</section>
+
+
+<!-- 1. REQUEST A QUOTE: details and next steps on the left, the quote form on the right.
+     Email, phone and address come from data/site.js. Form logic is in js/contact.js. -->
+<section class="ct-main" aria-labelledby="ct-title">
+  <div class="wrap ct-grid">
+
+    <!-- Left: intro, contact details, what happens next -->
+    <div class="ct-side ct-reveal">
+      <p class="ct-eyebrow">Get in touch</p>
+      <h2 id="ct-title">Request a Quote</h2>
+      <p>Tell us about your plans and we'll put together a quote shaped around your project. Every quote is individual, so the more you share, the better we can tailor it.</p>
+
+      <ul class="ct-info">
+        <li>
+          <span class="ct-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+          <div><span class="ct-k">Email</span><a id="ct-email" href="#">hello@yourdomain.com</a></div>
+        </li>
+        <li>
+          <span class="ct-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></span>
+          <div><span class="ct-k">Phone</span><a id="ct-phone" href="#">(000) 000-0000</a></div>
+        </li>
+        <li>
+          <span class="ct-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6 7-11a7 7 0 10-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+          <div><span class="ct-k">Based in</span><span id="ct-address">Your street, city, postcode</span></div>
+        </li>
+        <li id="ct-ig-row" hidden>
+          <span class="ct-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r=".6" fill="currentColor"/></svg></span>
+          <div><span class="ct-k">Instagram</span><a id="ct-ig" href="#">Follow our work</a></div>
+        </li>
+      </ul>
+
+      <p class="ct-next-title">What happens next</p>
+      <ol class="ct-next">
+        <li><span aria-hidden="true">1</span><p>You send your request using the form.</p></li>
+        <li><span aria-hidden="true">2</span><p>We review it and get in touch to talk through your plans.</p></li>
+        <li><span aria-hidden="true">3</span><p>You receive a quote shaped around your project.</p></li>
+      </ol>
+    </div>
+
+    <!-- Right: the quote form -->
+    <div class="ct-card ct-reveal" style="--i:1">
+
+      <form id="ct-form" class="ct-form" novalidate>
+        <div class="ct-row">
+          <div class="ct-field">
+            <label for="ct-name">Your name</label>
+            <input id="ct-name" name="name" type="text" autocomplete="name" required aria-describedby="ct-name-err">
+            <p class="ct-err" id="ct-name-err"></p>
+          </div>
+          <div class="ct-field">
+            <label for="ct-mail">Email</label>
+            <input id="ct-mail" name="email" type="email" autocomplete="email" required aria-describedby="ct-mail-err">
+            <p class="ct-err" id="ct-mail-err"></p>
+          </div>
+        </div>
+
+        <div class="ct-row">
+          <div class="ct-field">
+            <label for="ct-tel">Phone <span class="ct-opt">(optional)</span></label>
+            <input id="ct-tel" name="phone" type="tel" autocomplete="tel">
+          </div>
+          <div class="ct-field">
+            <label for="ct-service">Service</label>
+            <select id="ct-service" name="service" required aria-describedby="ct-service-err">
+              <option value="">Choose a service</option>
+              <option value="photography">Photography</option>
+              <option value="videography">Videography</option>
+              <option value="both">Photography and video</option>
+              <option value="events">Event coverage</option>
+              <option value="unsure">Not sure yet</option>
+            </select>
+            <p class="ct-err" id="ct-service-err"></p>
+          </div>
+        </div>
+
+        <div class="ct-row">
+          <div class="ct-field">
+            <label for="ct-occasion">Type of occasion <span class="ct-opt">(optional)</span></label>
+            <select id="ct-occasion" name="occasion">
+              <option value="">Choose one</option>
+              <option>Wedding</option>
+              <option>Birthday</option>
+              <option>Graduation</option>
+              <option>Portrait session</option>
+              <option>Personal branding</option>
+              <option>Corporate event</option>
+              <option>Creative project</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="ct-field">
+            <label for="ct-date">Date <span class="ct-opt">(optional)</span></label>
+            <input id="ct-date" name="date" type="date">
+          </div>
+        </div>
+
+        <div class="ct-row">
+          <div class="ct-field">
+            <label for="ct-loc">Location <span class="ct-opt">(optional)</span></label>
+            <input id="ct-loc" name="location" type="text" autocomplete="off" placeholder="City or venue">
+          </div>
+          <div class="ct-field">
+            <label for="ct-budget">Budget <span class="ct-opt">(optional)</span></label>
+            <input id="ct-budget" name="budget" type="text" autocomplete="off" placeholder="If you have a range in mind">
+          </div>
+        </div>
+
+        <div class="ct-field">
+          <label for="ct-msg">Tell us about your plans</label>
+          <textarea id="ct-msg" name="message" rows="5" required aria-describedby="ct-msg-err" placeholder="What are you planning, and what would you like us to capture?"></textarea>
+          <p class="ct-err" id="ct-msg-err"></p>
+        </div>
+
+        <!-- Spam trap: real visitors never see or fill this in -->
+        <div class="ct-hp" aria-hidden="true"><label>Leave this empty<input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+
+        <button type="submit" class="ct-submit">
+          <span>Send Request</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
+        </button>
+        <p class="ct-status" id="ct-status" role="status" aria-live="polite"></p>
+      </form>
+
+      <!-- Shown after a successful send -->
+      <div class="ct-done" id="ct-done" hidden>
+        <svg class="ct-check" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="26" cy="26" r="23"/><path d="M15 27l8 8 14-16"/></svg>
+        <h3 id="ct-done-title">Thank you</h3>
+        <p>Your request is in. We'll review the details and get back to you to talk through your plans.</p>
+        <button type="button" class="ct-again" id="ct-again">Send another request</button>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- 2. FAQ: tap a question to open it. These answers are deliberately neutral. Replace them with your own policies when you have decided them. -->
+<section class="ct-faq alt" aria-labelledby="ct-faq-title">
+  <div class="wrap ct-faq-grid">
+
+    <div class="ct-faq-head ct-reveal">
+      <p class="ct-eyebrow">FAQ</p>
+      <h2 id="ct-faq-title">Frequently Asked Questions</h2>
+      <p>A few things people often ask before requesting a quote. Can't find yours? Just ask in the form above.</p>
+    </div>
+
+    <div class="ct-acc ct-reveal" style="--i:1">
+
+      <div class="ct-q open">
+        <h3><button type="button" class="ct-qbtn" id="q1" aria-expanded="true" aria-controls="a1">How do I request a quote?<span class="ct-plus" aria-hidden="true"></span></button></h3>
+        <div class="ct-a" id="a1" role="region" aria-labelledby="q1"><div><p>Fill in the form above with a few details about your plans. We'll review it and get in touch to talk through the details before putting your quote together.</p></div></div>
+      </div>
+
+      <div class="ct-q">
+        <h3><button type="button" class="ct-qbtn" id="q2" aria-expanded="false" aria-controls="a2">How is pricing decided?<span class="ct-plus" aria-hidden="true"></span></button></h3>
+        <div class="ct-a" id="a2" role="region" aria-labelledby="q2"><div><p>Every project is different, so we quote each one individually, based on what you need: the occasion, how long you'd like us there, and what you'd like to receive afterwards.</p></div></div>
+      </div>
+
+      <div class="ct-q">
+        <h3><button type="button" class="ct-qbtn" id="q3" aria-expanded="false" aria-controls="a3">How far in advance should I book?<span class="ct-plus" aria-hidden="true"></span></button></h3>
+        <div class="ct-a" id="a3" role="region" aria-labelledby="q3"><div><p>The earlier the better, particularly for weddings and larger events. If your date is coming up soon, send a request anyway and we'll let you know what's possible.</p></div></div>
+      </div>
+
+      <div class="ct-q">
+        <h3><button type="button" class="ct-qbtn" id="q4" aria-expanded="false" aria-controls="a4">Do you travel for shoots or events?<span class="ct-plus" aria-hidden="true"></span></button></h3>
+        <div class="ct-a" id="a4" role="region" aria-labelledby="q4"><div><p>Add the location to your request and we'll confirm whether we can cover it, and whether travel affects your quote.</p></div></div>
+      </div>
+
+      <div class="ct-q">
+        <h3><button type="button" class="ct-qbtn" id="q5" aria-expanded="false" aria-controls="a5">What happens after the shoot?<span class="ct-plus" aria-hidden="true"></span></button></h3>
+        <div class="ct-a" id="a5" role="region" aria-labelledby="q5"><div><p>We edit your photographs or films with care, then deliver them to you. We'll agree on how and when you'll receive them while planning your project.</p></div></div>
+      </div>
+
+      <div class="ct-q">
+        <h3><button type="button" class="ct-qbtn" id="q6" aria-expanded="false" aria-controls="a6">What if my plans change?<span class="ct-plus" aria-hidden="true"></span></button></h3>
+        <div class="ct-a" id="a6" role="region" aria-labelledby="q6"><div><p>Let us know as soon as you can and we'll work with you. We'll agree on how changes are handled when your quote is confirmed.</p></div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- SITE FOOTER: built by js/layout.js -->
+<footer id="site-footer"></footer>
+
+<!-- Scripts. Order matters: data first, then shared helpers, then this page's own script -->
+<script src="data/site.js"></script>
+<script src="data/photos.js"></script>
+<script src="js/frames.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/reveal.js"></script>
+<script src="js/page-header.js"></script>
+<script src="js/contact.js"></script>
+</body>
+</html>

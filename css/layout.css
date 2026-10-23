@@ -1,0 +1,82 @@
+/* =============================================================
+   layout.css
+   The site header (logo and menu) and the footer.
+   Both are built by js/layout.js.
+   ============================================================= */
+
+/* ---- Header ---- */
+header{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--ink) 88%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font-family:Fraunces,serif;font-size:1.25rem;text-decoration:none}
+nav{display:flex;gap:1.6rem;align-items:center}
+nav a{text-decoration:none;font-size:.95rem;color:var(--mist)}
+nav a:hover{color:var(--bone)}
+.links{display:flex;gap:2rem}
+.links a,.btn.pill{text-transform:uppercase;letter-spacing:.12em;font-size:.85rem}
+.links a.on{color:var(--brass)}                 /* the page you are on */
+.btn.pill{border-radius:999px;background:color-mix(in srgb,var(--bone) 10%,transparent);color:var(--bone);border:1px solid var(--line)}   /* only used if you add a button to the menu */
+
+/* ---- Menu button (phones): three lines that turn into an X when the menu is open ---- */
+#menu{display:none;position:relative;width:44px;height:44px;padding:0;cursor:pointer;color:var(--bone);background:none;border:1px solid var(--line);border-radius:12px;transition:border-color .3s ease,background .3s ease}
+#menu:hover{border-color:color-mix(in srgb,var(--brass) 60%,transparent)}
+#menu .bar{position:absolute;left:11px;right:11px;height:2px;border-radius:2px;background:currentColor;transition:transform .35s cubic-bezier(.2,.7,.2,1),opacity .2s ease}
+#menu .bar:nth-child(1){top:14px}
+#menu .bar:nth-child(2){top:21px}
+#menu .bar:nth-child(3){top:28px}
+#menu[aria-expanded="true"] .bar:nth-child(1){transform:translateY(7px) rotate(45deg)}
+#menu[aria-expanded="true"] .bar:nth-child(2){opacity:0;transform:scaleX(.3)}
+#menu[aria-expanded="true"] .bar:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* Desktop: logo left, links centred */
+@media (min-width:861px){
+  header .wrap{display:grid;grid-template-columns:1fr auto 1fr}
+  nav{display:contents}
+  .btn.pill{justify-self:end}
+}
+
+/* Phone: the links drop down from the header in a panel */
+@media (max-width:860px){
+  #menu{display:block}
+  nav{
+    position:absolute;top:68px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;
+    padding:.4rem 1.5rem 1.5rem;max-height:calc(100vh - 68px);overflow-y:auto;
+    background:color-mix(in srgb,var(--ink) 96%,transparent);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);box-shadow:0 24px 40px rgba(0,0,0,.45);
+    visibility:hidden;opacity:0;transform:translateY(-10px);                         /* closed */
+    transition:opacity .3s ease,transform .35s cubic-bezier(.2,.7,.2,1),visibility 0s linear .35s;
+  }
+  nav.open{visibility:visible;opacity:1;transform:none;transition-delay:0s}          /* open */
+
+  .links{flex-direction:column;gap:0}
+  .links a{
+    display:block;padding:1rem 0;font-size:1rem;border-bottom:1px solid var(--line);
+    opacity:0;transform:translateX(-12px);transition:opacity .35s ease,transform .35s ease,color .3s ease;
+  }
+  nav.open .links a{opacity:1;transform:none;transition-delay:calc(var(--i,0) * 55ms + 80ms)}   /* links slide in one after another */
+  .links a:nth-child(1){--i:1} .links a:nth-child(2){--i:2} .links a:nth-child(3){--i:3}
+  .links a:nth-child(4){--i:4} .links a:nth-child(5){--i:5} .links a:nth-child(6){--i:6}
+
+  nav .btn.pill{display:flex;justify-content:center;margin-top:1.3rem;padding:1rem;opacity:0;transform:translateY(8px);transition:opacity .35s ease .4s,transform .35s ease .4s,background .3s ease}
+  nav.open .btn.pill{opacity:1;transform:none}
+}
+
+/* Visitors who prefer less motion */
+@media (prefers-reduced-motion:reduce){
+  #menu .bar,nav,.links a,nav .btn.pill{transition:none}
+}
+
+/* ---- Footer ---- */
+footer{padding:3rem 0;border-top:1px solid var(--line);font-size:.92rem;color:var(--mist)}
+footer .wrap{display:flex;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
+.fgrid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:2rem;width:100%}
+.fgrid h3{font-size:1.05rem;color:var(--bone)}
+.fgrid ul{list-style:none;padding:0;margin:0}
+.fgrid li{padding:.2rem 0}
+.fgrid a{text-decoration:none}
+.fgrid a:hover{color:var(--bone)}
+.fbar{width:100%;border-top:1px solid var(--line);padding-top:1.4rem;margin-top:2rem} /* copyright line */
+@media (max-width:860px){.fgrid{grid-template-columns:1fr 1fr}}
+
+
+

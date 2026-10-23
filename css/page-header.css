@@ -1,0 +1,40 @@
+/* =============================================================
+   page-header.css
+   The dark banner at the top of every inner page (About,
+   Services, Portfolio, Packages, Contact): scrolling photo
+   columns behind a centred title and "Home > Page" breadcrumb.
+   The photo columns are created by js/page-header.js.
+   ============================================================= */
+.phero{--ink:#15171c;--bone:#ece7dd;--mist:#b9bec9;--brass:#cfa75d;--line:#2f343e;   /* banner stays dark in light mode */
+  background:var(--ink);color:var(--bone);position:relative;overflow:hidden;
+  min-height:calc((clamp(340px,52vh,540px) - 35px)*.85);                              /* banner height: change here */
+  display:flex;align-items:center;justify-content:center;text-align:center;padding:0}
+.phero .wrap{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center}
+.phero h1{order:1;margin:0 0 .8rem;color:#fff}
+.phero .wrap>p:not(.crumb){display:none}
+.crumb{order:2;margin:0;color:#fff;font-size:1.05rem}
+.crumb a{text-decoration:none}
+.sep{display:inline-block;width:40px;height:1px;background:currentColor;margin:0 .9rem;vertical-align:middle;position:relative} /* the ——› between Home and the page name */
+.sep::after{content:"\203A";position:absolute;right:-.7rem;top:-.75em;font-size:.9rem}
+
+/* photo columns behind the title */
+.rows{--gap:clamp(.8rem,2vw,2rem);position:absolute;inset:0;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:var(--gap);opacity:.45}
+.rows .track{display:block;animation:up 44s linear infinite}
+.rows .track.rev{animation-direction:reverse}                  /* every second column moves down */
+.rows .track .frame{width:100%;margin:0 0 var(--gap);aspect-ratio:10/9}
+@keyframes up{to{transform:translateY(-50%)}}
+
+@media (max-width:860px){
+  .rows{grid-template-columns:repeat(3,1fr)}
+  .rows .track:nth-child(n+4){display:none}
+}
+@media (prefers-reduced-motion:reduce){.rows .track{animation:none}}
+
+@media (max-width:860px){
+  .phero {min-height: clamp(140px, 18vh, 190px)}
+  /* .phero{min-height:clamp(190px, 26vh, 250px)} */
+  
+  .phero h1{font-size:clamp(2.1rem, 9vw, 3rem)}
+  .rows{grid-template-columns:repeat(3,1fr)}              /* keep your existing lines here */
+  .rows .track:nth-child(n+4){display:none}
+}

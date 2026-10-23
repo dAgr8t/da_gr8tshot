@@ -1,0 +1,87 @@
+/* =============================================================
+   background.css
+   Site-wide living background, instead of a flat black page.
+   Four soft layers sit behind all content (js/background.js adds
+   them to every page):
+     1. Aurora    three large glows that drift very slowly
+     2. Thirds    faint rule-of-thirds lines, like a camera grid
+     3. Grain     fine film grain
+     4. Spotlight a soft light that follows the cursor (desktop)
+   Change the numbers in the first block to make it stronger or
+   softer. Set any of them to 0 to switch that layer off.
+   ============================================================= */
+
+/* The page colour moves to <html>, so the layers behind the content show through the transparent body */
+html{background:var(--ink)}
+body{background:transparent}
+
+.bg-fx{
+  /* ---- Controls ---- */
+  --bgfx-gold:   color-mix(in srgb, var(--brass, #cfa75d) 5%, transparent);   /* aurora glow 1 (your gold) */
+  --bgfx-violet: rgba(90, 74, 122, .0);                                       /* aurora glow 2 */
+  --bgfx-blue:   rgba(61, 90, 107, .26);                                       /* aurora glow 3 */
+  --bgfx-thirds: .05;                                                          /* 0 = off, .08 = more visible */
+  --bgfx-grain:  .10;                                                          /* 0 = off */
+  --bgfx-spot:   color-mix(in srgb, var(--brass, #cfa75d) 10%, transparent);   /* cursor light colour */
+
+  position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none;
+}
+
+/* Lighter page: softer glows, so text stays crisp */
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]) .bg-fx{
+    --bgfx-gold:   color-mix(in srgb, var(--brass, #8a6a2c) 16%, transparent);
+    --bgfx-violet: rgba(90, 74, 122, .12);
+    --bgfx-blue:   rgba(61, 90, 107, .10);
+    --bgfx-thirds: .07;
+    --bgfx-grain:  .05;
+    --bgfx-spot:   color-mix(in srgb, var(--brass, #8a6a2c) 12%, transparent);
+  }
+}
+:root[data-theme="light"] .bg-fx{
+  --bgfx-gold:   color-mix(in srgb, var(--brass, #8a6a2c) 16%, transparent);
+  --bgfx-violet: rgba(90, 74, 122, .12);
+  --bgfx-blue:   rgba(61, 90, 107, .10);
+  --bgfx-thirds: .07;
+  --bgfx-grain:  .05;
+  --bgfx-spot:   color-mix(in srgb, var(--brass, #8a6a2c) 12%, transparent);
+}
+
+/* ---- 1. Aurora: big soft glows drifting slowly (movement uses transform only, so it stays smooth) ---- */
+.bg-blob{position:absolute; width:68vmax; height:68vmax; border-radius:50%; will-change:transform}
+.bg-blob.a{left:-18vmax; top:-22vmax; background:radial-gradient(closest-side, var(--bgfx-gold), transparent);   animation:bgfx-a 38s ease-in-out infinite alternate}
+.bg-blob.b{right:-24vmax; bottom:-26vmax; background:radial-gradient(closest-side, var(--bgfx-violet), transparent); animation:bgfx-b 46s ease-in-out infinite alternate}
+.bg-blob.c{left:30%; top:38%; width:46vmax; height:46vmax; background:radial-gradient(closest-side, var(--bgfx-blue), transparent); animation:bgfx-c 54s ease-in-out infinite alternate}
+@keyframes bgfx-a{from{transform:translate(0,0) scale(1)}     to{transform:translate(20vmax,16vmax) scale(1.2)}}
+@keyframes bgfx-b{from{transform:translate(0,0) scale(1.1)}   to{transform:translate(-18vmax,-14vmax) scale(.95)}}
+@keyframes bgfx-c{from{transform:translate(-8vmax,6vmax)}     to{transform:translate(10vmax,-10vmax) scale(1.25)}}
+
+/* ---- 2. Rule-of-thirds lines: two vertical and two horizontal hairlines ---- */
+.bg-thirds{
+  position:absolute; inset:0; opacity:var(--bgfx-thirds); color:var(--bone, #ece7dd);
+  background:
+    linear-gradient(to right,  transparent calc(33.333% - .5px), currentColor calc(33.333% - .5px) calc(33.333% + .5px), transparent calc(33.333% + .5px) calc(66.666% - .5px), currentColor calc(66.666% - .5px) calc(66.666% + .5px), transparent calc(66.666% + .5px)),
+    linear-gradient(to bottom, transparent calc(33.333% - .5px), currentColor calc(33.333% - .5px) calc(33.333% + .5px), transparent calc(33.333% + .5px) calc(66.666% - .5px), currentColor calc(66.666% - .5px) calc(66.666% + .5px), transparent calc(66.666% + .5px));
+}
+
+/* ---- 3. Film grain (still, so it costs nothing while scrolling) ---- */
+.bg-grain{
+  position:absolute; inset:0; opacity:var(--bgfx-grain); mix-blend-mode:overlay;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---- 4. Spotlight: follows the cursor on desktop (position set by js/background.js) ---- */
+.bg-cursor{
+  position:absolute; left:0; top:0; width:560px; height:560px; margin:-280px 0 0 -280px; border-radius:50%;
+  background:radial-gradient(closest-side, var(--bgfx-spot), transparent);
+  opacity:0; transition:opacity .8s ease; will-change:transform;
+}
+
+/* ---- Let the glows show faintly through the lighter bands, instead of a solid block of colour ---- */
+.alt{background:color-mix(in srgb, var(--slate) 72%, transparent)}
+
+/* ---- Visitors who prefer less motion: the glows stay still ---- */
+@media (prefers-reduced-motion:reduce){
+  .bg-blob{animation:none}
+  .bg-cursor{display:none}
+}

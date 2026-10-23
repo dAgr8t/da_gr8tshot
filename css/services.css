@@ -1,0 +1,248 @@
+/* =============================================================
+   services.css
+   Services page only. Isolated: every class starts with svc-.
+   Sections: intro, three service rows, "better together" panel,
+   "find your fit" picker. (Banner: page-header.css. Closing call
+   to action: closing-cta.css.)
+   ============================================================= */
+.svc{
+  --svc-accent: var(--brass, #cfa75d);
+  --svc-text:   var(--bone,  #ece7dd);
+  --svc-muted:  var(--mist,  #8d93a0);
+  --svc-line:   var(--line,  #2f343e);
+  --svc-radius: 18px;
+}
+
+/* ---- Shared pieces ---- */
+.svc-eyebrow{display:flex; align-items:center; gap:.8rem; margin:0 0 1.2rem; font-size:.85rem; letter-spacing:.16em; text-transform:uppercase; color:var(--svc-accent)}
+.svc-eyebrow::before{content:""; width:36px; height:1px; background:currentColor}
+.svc h2{font-size:clamp(2rem, 4vw, 3.2rem); line-height:1.1}
+.svc-link{display:inline-flex; align-items:center; gap:.7rem; margin-top:.8rem; text-decoration:none; font-size:.85rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--svc-accent)}
+.svc-link svg{width:18px; height:18px; transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.svc-link:hover svg, .svc-link:focus-visible svg{transform:translateX(6px)}
+.svc-pills{list-style:none; margin:0 0 1.4rem; padding:0; display:flex; flex-wrap:wrap; gap:.5rem}
+.svc-pills li{padding:.35rem .9rem; border-radius:999px; font-size:.88rem; color:var(--svc-text); border:1px solid var(--svc-line); background:color-mix(in srgb, var(--svc-text) 5%, transparent)}
+
+/* ---- Entrance (only when JavaScript is running; without it everything just shows) ---- */
+.svc-js .svc-reveal{opacity:0; transform:translateY(28px); transition:opacity .8s ease, transform .9s cubic-bezier(.2,.7,.2,1); transition-delay:calc(var(--i, 0) * 120ms)}
+.svc-js .svc-reveal.in{opacity:1; transform:none}
+
+
+/* =============================================================
+   1. INTRO
+   ============================================================= */
+.svc-intro{padding-bottom:clamp(1rem, 3vw, 2rem)}
+.svc-head{text-align:center; max-width:680px; margin:0 auto}
+.svc-head .svc-eyebrow{justify-content:center}
+.svc-head .svc-eyebrow::after{content:""; width:36px; height:1px; background:currentColor}
+.svc-head p:last-child{margin-inline:auto; color:var(--svc-muted)}
+.svc-jump{display:flex; flex-wrap:wrap; justify-content:center; gap:.7rem; margin-top:2rem}
+.svc-jump a{
+  display:inline-flex; align-items:center; gap:.6rem; padding:.65rem 1.2rem; border-radius:999px; text-decoration:none; font-size:.92rem; color:var(--svc-text);
+  border:1px solid var(--svc-line); transition:transform .35s ease, border-color .35s ease, background .35s ease;
+}
+.svc-jump svg{width:18px; height:18px; color:var(--svc-accent)}
+.svc-jump a:hover, .svc-jump a:focus-visible{transform:translateY(-2px); border-color:color-mix(in srgb, var(--svc-accent) 65%, transparent); background:color-mix(in srgb, var(--svc-accent) 10%, transparent)}
+
+
+/* =============================================================
+   2. SERVICE ROWS
+   Photo and text side by side. ".flip" puts the photo on the
+   right. The photo moves slightly as you scroll (parallax).
+   ============================================================= */
+.svc-row{padding:clamp(2.5rem, 6vw, 4.5rem) 0}
+.svc-grid{display:grid; grid-template-columns:1fr 1fr; gap:clamp(2rem, 6vw, 5.5rem); align-items:center}
+.svc-row.flip .svc-media{order:2}
+
+.svc-media{position:relative; isolation:isolate; max-width:520px; width:100%; justify-self:center}
+.svc-media::before{                                      /* thin gold outline offset behind the photo */
+  content:""; position:absolute; z-index:-1; inset:6% -5% -5% 8%;
+  border:1px solid color-mix(in srgb, var(--svc-accent) 42%, transparent); border-radius:calc(var(--svc-radius) + 6px);
+}
+.svc-row.flip .svc-media::before{inset:6% 8% -5% -5%}
+.svc-media .frame{aspect-ratio:4/5; width:100%; border-radius:var(--svc-radius); box-shadow:0 24px 60px rgba(0,0,0,.28)}
+.svc-media .frame img{inset:-8% 0; height:116%; transform:translateY(calc(var(--p, 0) * 6%)); transition:none}   /* parallax: --p is set by js/services-page.js */
+.svc-badge{
+  position:absolute; top:1.2rem; right:1.2rem; width:56px; height:56px; display:grid; place-items:center; border-radius:50%;
+  color:var(--svc-accent); background:rgba(10,11,14,.55); border:1px solid rgba(255,255,255,.2);
+  -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+}
+.svc-badge svg{width:26px; height:26px}
+
+.svc-num{display:block; margin-bottom:.1rem; font:400 clamp(3.5rem, 8vw, 6rem)/1 Fraunces, Georgia, serif; color:transparent; -webkit-text-stroke:1px color-mix(in srgb, var(--svc-accent) 55%, transparent)}
+.svc-text h2{margin:0 0 1rem}
+.svc-text p{max-width:54ch; color:var(--svc-muted)}
+.svc-for{margin:1.6rem 0 .8rem!important; font-size:.8rem; letter-spacing:.16em; text-transform:uppercase; color:var(--svc-text)!important}
+
+
+/* =============================================================
+   3. BETTER TOGETHER
+   ============================================================= */
+.svc-both{padding:clamp(2rem, 5vw, 3.5rem) 0}
+.svc-both-panel{
+  display:grid; grid-template-columns:1.3fr 1fr; gap:clamp(1.5rem, 5vw, 4rem); align-items:center;
+  padding:clamp(2rem, 5vw, 3.8rem); border:1px solid var(--svc-line); border-radius:24px;
+  background:linear-gradient(120deg, color-mix(in srgb, var(--svc-accent) 14%, transparent), transparent 55%), var(--slate, #22262e);
+}
+.svc-both-panel h2{margin:0 0 1rem}
+.svc-both-panel p{max-width:50ch; color:var(--svc-muted)}
+.svc-both-art{display:flex; align-items:center; justify-content:center; gap:1rem}
+.svc-orb{
+  display:grid; place-items:center; width:clamp(84px, 12vw, 120px); aspect-ratio:1; border-radius:50%;
+  color:var(--svc-accent); background:color-mix(in srgb, var(--svc-accent) 8%, transparent);
+  border:1px solid color-mix(in srgb, var(--svc-accent) 50%, transparent); animation:svc-bob 6s ease-in-out infinite;
+}
+.svc-orb.two{animation-delay:-3s}
+.svc-orb svg{width:46%; height:46%}
+.svc-plus{font:400 2rem Fraunces, Georgia, serif; color:var(--svc-muted)}
+@keyframes svc-bob{50%{transform:translateY(-10px)}}
+
+
+/* =============================================================
+   4. FIND YOUR FIT
+   ============================================================= */
+.svc-pick-grid{display:grid; grid-template-columns:1fr 1fr; gap:clamp(2rem, 6vw, 5rem); align-items:center}
+.svc-pick-grid > div:first-child p:not(.svc-eyebrow){color:var(--svc-muted)}
+.svc-occ{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.6rem}
+.svc-occ button{
+  padding:.65rem 1.2rem; border-radius:999px; font:inherit; font-size:.95rem; cursor:pointer; color:var(--svc-text); background:transparent;
+  border:1px solid color-mix(in srgb, var(--svc-text) 28%, transparent); transition:transform .3s ease, background .3s ease, border-color .3s ease, color .3s ease;
+}
+.svc-occ button:hover{border-color:var(--svc-accent); transform:translateY(-2px)}
+.svc-occ button[aria-checked="true"]{background:var(--svc-accent); border-color:var(--svc-accent); color:var(--on-brass, #15171c)}
+.svc-result{
+  position:relative; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; min-height:280px;
+  padding:clamp(1.8rem, 4vw, 2.8rem); border:1px solid var(--svc-line); border-radius:20px;
+  background:radial-gradient(ellipse at 0% 0%, color-mix(in srgb, var(--svc-accent) 16%, transparent), transparent 60%), var(--ink);
+}
+.svc-result > *{transition:opacity .3s ease, transform .3s ease}
+.svc-result.swap > *{opacity:0; transform:translateY(10px)}
+.svc-result-label{margin:0 0 .8rem; font-size:.8rem; letter-spacing:.16em; text-transform:uppercase; color:var(--svc-accent)}
+.svc-result h3{margin:0 0 .8rem; font-size:clamp(1.6rem, 3vw, 2.2rem)}
+.svc-result p:not(.svc-result-label){margin:0 0 .6rem; max-width:46ch; color:var(--svc-muted)}
+
+
+/* =============================================================
+   Tablet and phone
+   ============================================================= */
+@media (max-width:900px){
+  .svc-grid, .svc-both-panel, .svc-pick-grid{grid-template-columns:1fr}
+  .svc-row.flip .svc-media{order:0}
+  .svc-media{max-width:460px}
+  .svc-both-art{justify-content:flex-start}
+  .svc-jump{position: relative;
+}}
+
+/* =============================================================
+   Visitors who prefer less motion: nothing moves
+   ============================================================= */
+@media (prefers-reduced-motion:reduce){
+  .svc-orb{animation:none}
+  .svc-media .frame img{transform:none}
+  .svc-link svg, .svc-jump a, .svc-occ button, .svc-result > *{transition:none}
+}
+
+
+
+
+/* =============================================================
+   6. CLOSING CALL TO ACTION
+   Compact dark panel: heading on the left, text and a glass
+   button on the right. Isolated: every class starts with ccta-,
+   and the shared .cta class used on other pages is untouched.
+   ============================================================= */
+
+/* Lets the browser animate the angle of the light that travels round the button border */
+@property --ccta-a { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+
+.ccta{padding:clamp(2rem, 5vw, 4rem) 0}                /* space above and below the panel (keep small for a short section) */
+
+/* ---- The panel (stays dark in light mode on purpose) ---- */
+.ccta-panel{
+  --brass:#cfa75d; --bone:#f5f1e8;                     /* local colours, so the shared .btn tokens stay gold on dark */
+  position:relative; isolation:isolate; overflow:hidden;
+  display:grid; grid-template-columns:1.25fr 1fr; align-items:end; gap:clamp(1.5rem, 5vw, 4rem);
+  padding:clamp(2rem, 5vw, 3.8rem); border-radius:28px; color:var(--bone);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 24px 60px rgba(0,0,0,.28);
+  background:radial-gradient(ellipse at 15% 0%, rgba(207,167,93,.18), transparent 55%), #0b0c10;   /* shows when there is no photo */
+}
+
+/* Photo + dark gradient from the left, so the text is always readable */
+.ccta-bg{position:absolute; inset:0; z-index:-2}
+.ccta-bg img{width:100%; height:100%; object-fit:cover; display:block; filter:brightness(.6) saturate(.9); animation:ccta-drift 22s ease-in-out infinite alternate}   /* very slow push-in */
+.ccta-panel::after{content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(95deg, rgba(11,12,16,.93) 0, rgba(11,12,16,.72) 48%, rgba(11,12,16,.35) 100%)}
+.ccta-glow{                                            /* soft gold light that drifts slowly in the corner */
+  position:absolute; z-index:-1; right:-10%; top:-40%; width:60%; aspect-ratio:1; pointer-events:none;
+  background:radial-gradient(closest-side, rgba(207,167,93,.22), transparent); filter:blur(10px);
+  animation:ccta-glow 14s ease-in-out infinite alternate;
+}
+
+/* ---- Text ---- */
+.ccta-label{display:inline-flex; align-items:center; gap:.8rem; margin:0 0 1.1rem; font-size:.8rem; letter-spacing:.2em; text-transform:uppercase; color:var(--brass)}
+.ccta-label::before{content:""; width:32px; height:1px; background:currentColor}
+.ccta-panel h2{margin:0; max-width:16ch; font-size:clamp(2rem, 4.4vw, 3.6rem); line-height:1.05; letter-spacing:-.015em; color:var(--bone)}
+.ccta-panel h2 em{font-style:italic; color:var(--brass)}
+.ccta-text{margin:0 0 1.8rem; max-width:44ch; font-size:clamp(1rem, 1.3vw, 1.1rem); line-height:1.7; color:rgba(245,241,232,.8)}
+
+/* ---- Glass button (still your brand gold, as a tint) ---- */
+.ccta .ccta-btn{
+  position:relative; isolation:isolate; display:inline-flex; align-items:center; gap:.9rem;
+  min-height:54px; padding:.95rem 1.9rem; border-radius:999px;
+  font-size:.85rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:#fff;
+  background:color-mix(in srgb, var(--brass) 20%, rgba(255,255,255,.08));                 /* see-through gold tint */
+  border:1px solid rgba(255,255,255,.28);
+  -webkit-backdrop-filter:blur(14px) saturate(150%); backdrop-filter:blur(14px) saturate(150%);   /* the frosted-glass blur */
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.4), inset 0 -1px 0 rgba(255,255,255,.06), 0 12px 30px rgba(0,0,0,.35);
+  transition:transform .35s ease, background .35s ease, border-color .35s ease, box-shadow .35s ease;
+}
+.ccta .ccta-btn::before{                               /* light that travels round the border on hover, then fades out */
+  content:""; position:absolute; inset:-1px; padding:2px; border-radius:inherit; z-index:-1;
+  background:conic-gradient(from var(--ccta-a),
+    transparent 0 55%,
+    rgba(255,246,220,.3) 72%, rgba(255,246,220,.8) 92%, #fff6dc 99%, transparent 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask:linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  filter:drop-shadow(0 0 5px #fff6dc);
+  opacity:0; transition:opacity .5s ease; animation:ccta-orbit 2.6s linear infinite paused; pointer-events:none;
+}
+.ccta .ccta-btn svg{width:19px; height:19px; flex:none; transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.ccta .ccta-btn:hover, .ccta .ccta-btn:focus-visible{
+  transform:translateY(-2px); filter:none;
+  background:color-mix(in srgb, var(--brass) 34%, rgba(255,255,255,.1));
+  border-color:rgba(207,167,93,.7);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.5), 0 16px 38px rgba(0,0,0,.4), 0 0 26px rgba(207,167,93,.3);
+}
+.ccta .ccta-btn:hover::before, .ccta .ccta-btn:focus-visible::before{opacity:1; animation-play-state:running}
+.ccta .ccta-btn:hover svg, .ccta .ccta-btn:focus-visible svg{transform:translate(4px,-4px)}   /* arrow flies up and right */
+
+/* ---- Entrance (only when JavaScript is running; without it everything just shows) ---- */
+.ccta.js .ccta-panel{opacity:0; transform:translateY(28px) scale(.985); transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1)}
+.ccta.js .ccta-label, .ccta.js .ccta-panel h2, .ccta.js .ccta-text, .ccta.js .ccta-btn{opacity:0; transform:translateY(18px)}
+.ccta.js.in .ccta-panel{opacity:1; transform:none}
+.ccta.js.in .ccta-label, .ccta.js.in .ccta-panel h2, .ccta.js.in .ccta-text, .ccta.js.in .ccta-btn{opacity:1; transform:none; transition:opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1)}
+.ccta.js.in .ccta-label{transition-delay:.25s}
+.ccta.js.in .ccta-panel h2{transition-delay:.4s}
+.ccta.js.in .ccta-text{transition-delay:.6s}
+.ccta.js.in .ccta-btn{transition:opacity .8s ease .75s, transform .8s cubic-bezier(.2,.7,.2,1) .75s, background .35s ease, border-color .35s ease, box-shadow .35s ease}
+.ccta.js.in .ccta-btn:hover, .ccta.js.in .ccta-btn:focus-visible{transform:translateY(-2px); transition-delay:0s}
+
+@keyframes ccta-drift{from{transform:scale(1.04)} to{transform:scale(1.12) translate(-1.5%,-1%)}}
+@keyframes ccta-glow{from{transform:translate(0,0)} to{transform:translate(-12%,14%) scale(1.15)}}
+@keyframes ccta-orbit{to{--ccta-a:360deg}}
+
+/* ---- Tablet and phone: one column ---- */
+@media (max-width:860px){
+  .ccta-panel{grid-template-columns:1fr; align-items:start; border-radius:22px}
+  .ccta-panel h2{max-width:none}
+  .ccta-text{margin-bottom:1.5rem}
+}
+@media (max-width:560px){.ccta .ccta-btn{width:100%; justify-content:center}}
+
+/* ---- Visitors who prefer less motion: nothing moves, everything is visible ---- */
+@media (prefers-reduced-motion:reduce){
+  .ccta-bg img, .ccta-glow{animation:none}
+  .ccta .ccta-btn::before{animation:none; background:rgba(255,246,220,.55)}
+  .ccta .ccta-btn, .ccta .ccta-btn svg{transition:none}
+}

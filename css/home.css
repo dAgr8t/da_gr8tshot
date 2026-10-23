@@ -1,0 +1,722 @@
+/* =============================================================
+   home.css
+   Styles for index.html only. Sections in page order:
+     1. Hero              4. What we do
+     2. About us          5. Packages
+     3. Selected work     6. Closing call to action
+   Each section keeps its own phone and reduced-motion rules at
+   its end, so everything for a section sits together.
+   ============================================================= */
+
+
+/* =============================================================
+   1. HERO
+   Full-screen dark hero. Five columns of photos scroll up and
+   down behind centred text. A soft light follows the cursor.
+   ============================================================= */
+.hero{
+  --ink:#000000; --bone:#ece7dd; --mist:#b9bec9; --brass:#cfa75d; --on-brass:#15171c; --line:#2f343e; --slate:#22262e;  /* stays dark in light mode too */
+  background:var(--ink); color:var(--bone); position:relative; overflow:hidden; padding:6rem 0 5rem;
+  min-height:calc(100vh - 68px);
+  min-height:calc(100svh - 68px);                       /* svh ignores the phone address bar; the line above is the fallback */
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3.5rem;
+}
+.hero::before{                                          /* the cursor light (position set in js/home.js) */
+  content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:radial-gradient(circle 340px at var(--x,70%) var(--y,35%),color-mix(in srgb,var(--brass) 26%,transparent),transparent 70%);
+}
+
+/* Text block: sits above the photos */
+.hero .wrap.herogrid{width:100%; max-width:none; padding:0 1.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center}
+.hero .copy{position:relative; z-index:2; max-width:980px}
+.hero h1{letter-spacing:.05em; animation:rise 1s both}
+.hero p{font-size:1.2rem}
+.hero .copy p{margin-inline:auto; max-width:64ch; color:#d9dce3}
+.hero .actions{display:flex; gap:1rem; flex-wrap:wrap; margin-top:1.8rem; justify-content:center}
+@keyframes rise{from{opacity:0; transform:translateY(28px)}}
+
+/* Double gold underline under "beautiful" */
+.mark{position:relative; display:inline-block; white-space:nowrap}
+.mark::after{
+  content:""; position:absolute; left:0; right:0;
+  bottom:-.18em;                                         /* distance below the word */
+  height:.32em;                                          /* thickness of the double line */
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 24' preserveAspectRatio='none'%3E%3Cpath d='M4 8 C70 3 200 3 296 7' fill='none' stroke='%23e6d28f' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M20 18 C90 14 190 14 262 17' fill='none' stroke='%23e6d28f' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+}
+
+/* Buttons in the hero */
+.hero .actions .btn:first-child{border-radius:999px; background:rgba(255,255,255,.14); color:#fff; border:1px solid rgba(255,255,255,.3); backdrop-filter:blur(6px); padding:.65rem 1.7rem .65rem .65rem; display:inline-flex; align-items:center; gap:.8rem}
+.hero .actions .btn:first-child::before{content:"\2197"; width:38px; height:38px; border:1px solid var(--brass); border-radius:50%; display:grid; place-items:center; color:var(--brass)}
+.hero .actions .btn.ghost{border-radius:999px; color:#fff; border-color:rgba(255,255,255,.3)}
+
+/* Scrolling photo background: 5 columns, alternating direction. Photos come from data/photos.js. */
+.marq{--gap:clamp(.8rem,2vw,2rem); position:absolute; inset:0; display:grid; grid-template-columns:repeat(5,1fr); gap:var(--gap); overflow:hidden; opacity:.2}   /* opacity: how visible the photos are */
+.col{animation:up 40s linear infinite}
+.col.dn{animation-direction:reverse; animation-duration:50s}   /* every second column moves down */
+.marq .col:nth-child(3){animation-duration:46s}                 /* different speeds so columns don't move in lockstep */
+.marq .col:nth-child(5){animation-duration:58s}
+.marq .frame{
+  aspect-ratio:auto!important; margin-bottom:var(--gap);
+  height:calc(((100vh - 68px) - 2*var(--gap))/2);
+  height:calc(((100svh - 68px) - 2*var(--gap))/2);              /* two photos visible per column */
+}
+@keyframes up{to{transform:translateY(-50%)}}
+
+/* Decoration: vertical "Creative" label and the spinning "Scroll down" badge */
+.vlabel{position:absolute; left:1.2rem; top:50%; writing-mode:vertical-rl; transform:translateY(-50%) rotate(180deg); letter-spacing:.12em; color:#fff; z-index:3; font-size:.95rem}
+.badge{position:absolute; right:2rem; bottom:1.5rem; width:128px; color:#fff; animation:spin 20s linear infinite; z-index:3; pointer-events:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Phone: three columns, no decorations */
+@media (max-width:601px){
+  .marq{grid-template-columns:repeat(2,1fr)}
+  .marq .col:nth-child(n+4), .vlabel, .badge{display:none}
+}
+@media (prefers-reduced-motion:reduce){.col, .hero h1, .badge{animation:none}}
+
+/* Tablet: two columns, simplified decorations */
+@media (min-width: 602px) and (max-width: 768px) {
+  .marq{grid-template-columns:repeat(3,1fr)}
+  /* .marq .col:nth-child(n+4), .vlabel, .badge{display:none} */
+}
+@media (prefers-reduced-motion:reduce){.col, .hero h1, .badge{animation:none}}
+
+
+/* =============================================================
+   2. ABOUT US
+   Two columns: image stack on the left (travelling glowing border
+   + floating small image), text on the right.
+   ============================================================= */
+
+/* Lets the browser animate the border's angle (this is what makes the light travel) */
+@property --ab-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+
+.about-section{
+  --ab-accent: var(--brass, #cfa75d);
+  --ab-text:   var(--bone,  #ece7dd);
+  --ab-muted:  var(--mist,  #c3c8d0);
+  --ab-bg:     var(--ink,   #15171c);
+  --ab-radius: 18px;                                   /* corner roundness of the images */
+  --ab-gap: clamp(1.5rem, 5vw, 3rem);                  /* room left on the side for the small image to overlap */
+  --ab-line: #fff6dc;                                  /* colour of the travelling light (warm white) */
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]) .about-section{--ab-line: var(--brass)}
+}
+:root[data-theme="light"] .about-section{--ab-line: var(--brass)}
+
+/* ---- Two-column layout ---- */
+.ab-grid{display:grid; grid-template-columns:1fr 1fr; gap:clamp(2.5rem, 6vw, 6rem); align-items:center}
+
+/* ---- Left: images ---- */
+.ab-visual{position:relative; width:100%; max-width:560px; justify-self:center; padding:0 0 0 var(--ab-gap)}
+.ab-frame{position:relative; border-radius:var(--ab-radius)}
+.ab-main {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+/* Faint ring that is always visible, so the edge looks finished */
+.ab-frame::after, .ab-small::after{
+  content:""; position:absolute; inset:-2px; border-radius:calc(var(--ab-radius) + 2px);
+  border:1px solid color-mix(in srgb, var(--ab-line) 22%, transparent); pointer-events:none;
+}
+
+/* Bright light with a fading tail that travels around the edge */
+.ab-frame::before, .ab-small::before{
+  content:""; position:absolute; inset:-2px; padding:3px;          /* padding = thickness of the moving line */
+  border-radius:calc(var(--ab-radius) + 2px);
+  background:conic-gradient(from var(--ab-angle),
+    transparent 0 50%,
+    color-mix(in srgb, var(--ab-line) 25%, transparent) 68%,
+    color-mix(in srgb, var(--ab-line) 75%, transparent) 90%,
+    var(--ab-line) 98%,
+    transparent 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask:linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  filter:drop-shadow(0 0 4px var(--ab-line)) drop-shadow(0 0 14px color-mix(in srgb, var(--ab-line) 60%, transparent));   /* the glow */
+  pointer-events:none; z-index:1;
+}
+.ab-frame::before{animation:ab-spin 6s linear infinite}
+.ab-small::before{animation:ab-spin 10s linear infinite}
+@keyframes ab-spin{to{--ab-angle:360deg}}
+
+/* Small image: overlaps the left edge of the main image, centred vertically, floating gently */
+.ab-small{position:absolute; top:50%; left:0; translate:0 -50%; width:34%; z-index:3; animation:ab-float 6s ease-in-out infinite}
+.ab-small img{display:block; width:100%; aspect-ratio:3 / 4; height: auto; object-fit:cover; border-radius:var(--ab-radius)}   /* same radius as the ring, so the corners line up */
+@keyframes ab-float{
+  0%, 100%{transform:translateY(0)}
+  50%{transform:translateY(-20px)}                     /* how far it floats: change 20px */
+}
+
+/* ---- Right: content ---- */
+.ab-content{max-width:540px}
+.ab-eyebrow{display:flex; align-items:center; gap:.8rem; margin:0 0 1.2rem; font-size:.85rem; letter-spacing:.16em; text-transform:uppercase; color:var(--ab-accent)}
+.ab-eyebrow::before{content:""; width:36px; height:1px; background:currentColor}
+.ab-content h2{margin:0 0 1rem; font-size:clamp(2rem, 4vw, 3.2rem); line-height:1.1; color:var(--ab-text)}
+.ab-content p{max-width:52ch; margin:0 0 1.1em; color:var(--ab-muted)}
+.ab-content .btn{margin-top:.8rem}
+
+/* ---- Glass button with an animated arrow ---- */
+.btn.btn-glass{
+  display:inline-flex; align-items:center; gap:.9rem; padding:.9rem 1.7rem; border-radius:999px;
+  text-transform:uppercase; letter-spacing:.12em; font-size:.85rem; font-weight:500; text-decoration:none; color:var(--ab-text);
+  background:color-mix(in srgb, var(--ab-text) 10%, transparent);                      /* see-through fill */
+  border:1px solid color-mix(in srgb, var(--ab-text) 28%, transparent);
+  -webkit-backdrop-filter:blur(12px) saturate(140%); backdrop-filter:blur(12px) saturate(140%);
+  box-shadow:inset 0 1px 0 color-mix(in srgb, var(--ab-text) 35%, transparent), 0 10px 28px rgba(0,0,0,.28);   /* bright top edge + lift */
+  transition:transform .35s ease, background .35s ease, border-color .35s ease, box-shadow .35s ease;
+}
+.btn.btn-glass:hover{
+  transform:translateY(-2px); filter:none;                                              /* filter:none cancels the base .btn hover */
+  background:color-mix(in srgb, var(--ab-text) 18%, transparent);
+  border-color:color-mix(in srgb, var(--ab-accent) 70%, transparent);
+  box-shadow:inset 0 1px 0 color-mix(in srgb, var(--ab-text) 45%, transparent), 0 14px 34px rgba(0,0,0,.35), 0 0 22px color-mix(in srgb, var(--ab-accent) 30%, transparent);
+}
+.btn.btn-glass .arrow{flex:none; animation:ab-nudge 1.8s ease-in-out infinite; transition:translate .35s ease}   /* nudges right on a loop */
+.btn.btn-glass:hover .arrow{translate:6px 0}
+@keyframes ab-nudge{0%, 100%{transform:translateX(0)} 50%{transform:translateX(4px)}}
+
+/* ---- Tablet and phone: image stack above the text, overlap stays intact ---- */
+@media (max-width:900px){
+  .ab-grid{grid-template-columns:1fr; gap:3rem}
+  .ab-visual{max-width:520px}
+  .ab-content{max-width:none}
+}
+@media (max-width:480px){.ab-small{width:38%}}
+
+/* ---- Visitors who prefer less motion: no travelling light, no floating, no arrow loop ---- */
+@media (prefers-reduced-motion:reduce){
+  .ab-frame::before, .ab-small::before{animation:none; background:color-mix(in srgb, var(--ab-accent) 55%, transparent)}
+  .ab-small, .btn.btn-glass .arrow{animation:none}
+  .btn.btn-glass:hover{transform:none}
+}
+
+
+/* =============================================================
+   3. SELECTED WORK
+   A bento grid of six photos. Isolated: every class starts with
+   ws-. Photos and captions come from data/photos.js through
+   js/selected-work.js.
+   ============================================================= */
+.ws{
+  --ws-accent: var(--brass, #cfa75d);
+  --ws-text:   var(--bone,  #ece7dd);
+  --ws-muted:  var(--mist,  #8d93a0);
+  --ws-line:   var(--line,  #2f343e);
+  --ws-light:  #f5f1e8;                                /* text on top of photos */
+}
+
+/* ---- Header: heading left, button right ---- */
+.ws-head{display:flex; justify-content:space-between; align-items:end; gap:2rem; margin-bottom:clamp(2rem, 4vw, 3rem)}
+.ws-label{display:inline-flex; align-items:center; gap:.8rem; margin:0 0 1rem; font-size:.85rem; letter-spacing:.16em; text-transform:uppercase; color:var(--ws-accent)}
+.ws-label::before{content:""; width:36px; height:1px; background:currentColor}
+.ws-head h2{margin:0 0 .8rem; font-size:clamp(2rem, 4.2vw, 3.2rem); line-height:1.1}
+.ws-head p:last-child{margin:0; max-width:52ch; color:var(--ws-muted)}
+
+/* ---- Glass button ---- */
+.ws-btn{
+  display:inline-flex; align-items:center; gap:.8rem; flex:none; padding:.9rem 1.7rem; border-radius:999px; text-decoration:none;
+  font-size:.85rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--ws-text);
+  background:color-mix(in srgb, var(--ws-text) 10%, transparent);
+  border:1px solid color-mix(in srgb, var(--ws-text) 28%, transparent);
+  -webkit-backdrop-filter:blur(12px) saturate(140%); backdrop-filter:blur(12px) saturate(140%);
+  box-shadow:inset 0 1px 0 color-mix(in srgb, var(--ws-text) 35%, transparent);
+  transition:transform .35s ease, background .35s ease, border-color .35s ease, box-shadow .35s ease;
+}
+.ws-btn svg{width:18px; height:18px; transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.ws-btn:hover, .ws-btn:focus-visible{
+  transform:translateY(-2px);
+  background:color-mix(in srgb, var(--ws-text) 18%, transparent);
+  border-color:color-mix(in srgb, var(--ws-accent) 70%, transparent);
+  box-shadow:inset 0 1px 0 color-mix(in srgb, var(--ws-text) 45%, transparent), 0 0 22px color-mix(in srgb, var(--ws-accent) 28%, transparent);
+}
+.ws-btn:hover svg, .ws-btn:focus-visible svg{transform:translateX(5px)}
+
+/* ---- Bento grid: 4 columns x 3 rows. The big tile is "a", the tall one "c", the wide strip "f" ---- */
+.ws-grid{
+  display:grid; grid-template-columns:repeat(4,1fr);
+  grid-template-rows:repeat(3, clamp(150px, 19vw, 250px));
+  gap:clamp(.6rem, 1.4vw, 1rem);
+  grid-template-areas:"a a b c"
+                      "a a d c"
+                      "e f f f";
+}
+.ws-item:nth-of-type(1){grid-area:a}
+.ws-item:nth-of-type(2){grid-area:b}
+.ws-item:nth-of-type(3){grid-area:c}
+.ws-item:nth-of-type(4){grid-area:d}
+.ws-item:nth-of-type(5){grid-area:e}
+.ws-item:nth-of-type(6){grid-area:f}
+
+/* ---- Tile ---- */
+.ws-item{
+  position:relative; isolation:isolate; overflow:hidden; display:block; border-radius:16px; color:var(--ws-light); text-decoration:none;
+  background:var(--g, #22262e); outline-offset:3px; border:1px solid color-mix(in srgb, var(--ws-text) 10%, transparent);
+}
+.ws-item img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+.ws-item::after{                                       /* dark fade so captions stay readable */
+  content:""; position:absolute; inset:0; z-index:1;
+  background:linear-gradient(to top, rgba(10,11,14,.85), rgba(10,11,14,0) 58%); opacity:.5; transition:opacity .5s ease;
+}
+.ws-cap{
+  position:absolute; left:1.1rem; right:4rem; bottom:1rem; z-index:2; display:grid; gap:.15rem;
+  opacity:0; transform:translateY(12px); transition:opacity .45s ease, transform .45s cubic-bezier(.2,.7,.2,1);
+}
+.ws-title{font:400 1.25rem/1.2 Fraunces, Georgia, serif}
+.ws-cat{font-size:.8rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ws-accent)}
+.ws-arrow{
+  position:absolute; right:1rem; bottom:1rem; z-index:2; width:40px; height:40px; display:grid; place-items:center; border-radius:50%;
+  background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25);
+  -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+  opacity:0; transform:translate(6px,6px) scale(.85);
+  transition:opacity .45s ease, transform .45s cubic-bezier(.2,.7,.2,1), background .3s ease;
+}
+.ws-arrow svg{width:18px; height:18px}
+
+/* Hover and keyboard focus */
+.ws-item:hover img, .ws-item:focus-visible img{transform:scale(1.07)}
+.ws-item:hover::after, .ws-item:focus-visible::after{opacity:1}
+.ws-item:hover .ws-cap, .ws-item:focus-visible .ws-cap{opacity:1; transform:none}
+.ws-item:hover .ws-arrow, .ws-item:focus-visible .ws-arrow{opacity:1; transform:none}
+.ws-item:hover .ws-arrow{background:var(--ws-accent); border-color:var(--ws-accent); color:#15171c}
+/* Touch screens have no hover, so captions and arrows are always shown */
+@media (hover:none){
+  .ws-cap, .ws-arrow{opacity:1; transform:none}
+  .ws-item::after{opacity:1}
+}
+
+/* ---- Entrance (only when JavaScript is running): tiles rise in one after another ---- */
+.ws.js .ws-item{opacity:0; transform:translateY(32px) scale(.98)}
+.ws.js.in .ws-item{
+  opacity:1; transform:none;
+  transition:opacity .8s ease calc(var(--i) * 90ms), transform .9s cubic-bezier(.2,.7,.2,1) calc(var(--i) * 90ms);
+}
+
+/* ---- Tablet and phone ---- */
+@media (max-width:900px){
+  .ws-head{flex-direction:column; align-items:flex-start}
+  .ws-grid{
+    grid-template-columns:repeat(2,1fr);
+    grid-template-rows:repeat(4, clamp(150px, 34vw, 260px));
+    grid-template-areas:"a a" "b c" "d e" "f f";
+  }
+}
+@media (max-width:520px){.ws-btn{width:100%; justify-content:center}}
+
+/* ---- Visitors who prefer less motion ---- */
+@media (prefers-reduced-motion:reduce){
+  .ws-item img, .ws-cap, .ws-arrow, .ws-btn, .ws-btn svg{transition:none}
+  .ws-item:hover img{transform:none}
+}
+
+
+/* =============================================================
+   4. WHAT WE DO
+   Three service cards (icons only, no photos) and two glass
+   buttons. Uses the site's colour variables, with fallbacks.
+   ============================================================= */
+.wwd{
+  --wwd-accent: var(--brass, #cfa75d);
+  --wwd-text:   var(--bone,  #ece7dd);
+  --wwd-muted:  var(--mist,  #8d93a0);
+  --wwd-line:   var(--line,  #2f343e);
+  --wwd-card:   var(--slate, #22262e);
+  --wwd-glow:   #fff6dc;                               /* colour of the light that travels round the buttons */
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]) .wwd{--wwd-glow: var(--brass, #8a6a2c)}    /* white would vanish on a light page */
+}
+:root[data-theme="light"] .wwd{--wwd-glow: var(--brass, #8a6a2c)}
+
+/* ---- Header ---- */
+.wwd-head{text-align:center; max-width:640px; margin:0 auto clamp(2.5rem, 5vw, 4rem)}
+.wwd-label{display:inline-flex; align-items:center; gap:.8rem; margin:0 0 1.1rem; font-size:.85rem; letter-spacing:.16em; text-transform:uppercase; color:var(--wwd-accent)}
+.wwd-label::before, .wwd-label::after{content:""; width:28px; height:1px; background:currentColor; opacity:.7}
+.wwd-head h2{margin:0 0 1rem; font-size:clamp(2rem, 4.2vw, 3.2rem); line-height:1.1}
+.wwd-head p:last-child{margin:0 auto; color:var(--wwd-muted)}
+
+/* ---- Card grid: 3 across on desktop ---- */
+.wwd-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(1rem, 2vw, 1.6rem)}
+
+/* ---- Card ---- */
+.wwd-card{
+  position:relative; display:flex; flex-direction:column; overflow:hidden; padding:clamp(1.6rem, 3vw, 2.2rem);
+  background:color-mix(in srgb, var(--wwd-card) 55%, transparent);
+  border:1px solid var(--wwd-line); border-radius:16px;
+  box-shadow:0 1px 0 color-mix(in srgb, var(--wwd-text) 6%, transparent) inset, 0 8px 24px rgba(0,0,0,.12);
+  text-decoration:none; color:inherit;
+  transition:transform .4s cubic-bezier(.2,.7,.2,1), border-color .4s ease, box-shadow .4s ease, background .4s ease;
+}
+.wwd-card::before{                                     /* thin gold line along the top that draws in on hover */
+  content:""; position:absolute; left:0; right:0; top:0; height:2px; background:var(--wwd-accent);
+  transform:scaleX(0); transform-origin:left; transition:transform .5s cubic-bezier(.2,.7,.2,1);
+}
+.wwd-icon{
+  display:grid; place-items:center; width:56px; height:56px; margin-bottom:1.5rem; border-radius:50%;
+  border:1px solid color-mix(in srgb, var(--wwd-accent) 45%, transparent);
+  color:var(--wwd-accent); background:color-mix(in srgb, var(--wwd-accent) 8%, transparent);
+  transition:background .4s ease, transform .4s ease;
+}
+.wwd-icon svg{width:26px; height:26px}
+.wwd-card h3{margin:0 0 .7rem; font-size:1.5rem}
+.wwd-card p{margin:0 0 1.8rem; color:var(--wwd-muted); line-height:1.65}
+.wwd-arrow{                                            /* small arrow, pinned to the bottom of the card */
+  display:grid; place-items:center; width:40px; height:40px; margin-top:auto; border-radius:50%;
+  border:1px solid var(--wwd-line); color:var(--wwd-text);
+  transition:transform .4s cubic-bezier(.2,.7,.2,1), background .4s ease, color .4s ease, border-color .4s ease;
+}
+.wwd-arrow svg{width:18px; height:18px}
+
+/* Hover and keyboard focus */
+.wwd-card:hover, .wwd-card:focus-visible{
+  transform:translateY(-6px);
+  border-color:color-mix(in srgb, var(--wwd-accent) 55%, transparent);
+  background:color-mix(in srgb, var(--wwd-card) 85%, transparent);
+  box-shadow:0 1px 0 color-mix(in srgb, var(--wwd-text) 10%, transparent) inset, 0 20px 44px rgba(0,0,0,.28);
+}
+.wwd-card:hover::before, .wwd-card:focus-visible::before{transform:scaleX(1)}
+.wwd-card:hover .wwd-icon{background:color-mix(in srgb, var(--wwd-accent) 18%, transparent); transform:scale(1.05)}
+.wwd-card:hover .wwd-arrow, .wwd-card:focus-visible .wwd-arrow{transform:translateX(6px); background:var(--wwd-accent); border-color:var(--wwd-accent); color:var(--on-brass, #15171c)}
+
+/* ---- Buttons: centred, with space between ---- */
+.wwd .wwd-actions{display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:1rem; width:100%; margin:clamp(2.2rem, 4vw, 3rem) auto 0}
+.wwd .wwd-actions .btn{margin:0}
+
+/* Glass look, with a light that travels round the border on hover */
+@property --btn-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+
+.wwd-actions .btn{
+  position:relative; isolation:isolate; display:inline-flex; align-items:center; justify-content:center;
+  padding:.95rem 2rem; border-radius:999px; font-size:.85rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase; text-decoration:none; color:var(--wwd-text);
+  background:color-mix(in srgb, var(--wwd-text) 9%, transparent);                        /* see-through fill */
+  border:1px solid color-mix(in srgb, var(--wwd-text) 26%, transparent);
+  -webkit-backdrop-filter:blur(12px) saturate(140%); backdrop-filter:blur(12px) saturate(140%);
+  box-shadow:inset 0 1px 0 color-mix(in srgb, var(--wwd-text) 35%, transparent), 0 10px 28px rgba(0,0,0,.25);
+  transition:transform .35s ease, background .35s ease, box-shadow .35s ease, border-color .35s ease;
+}
+.wwd-actions .btn:not(.ghost){                          /* primary button: same glass, tinted with the brand colour */
+  background:color-mix(in srgb, var(--wwd-accent) 26%, transparent);
+  border-color:color-mix(in srgb, var(--wwd-accent) 55%, transparent);
+}
+.wwd-actions .btn::before{                              /* the travelling light: a bright point with a fading tail, masked to a thin ring */
+  content:""; position:absolute; inset:-1px; padding:2px; border-radius:inherit; z-index:-1;
+  background:conic-gradient(from var(--btn-angle),
+    transparent 0 55%,
+    color-mix(in srgb, var(--wwd-glow) 30%, transparent) 72%,
+    color-mix(in srgb, var(--wwd-glow) 80%, transparent) 92%,
+    var(--wwd-glow) 99%,
+    transparent 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask:linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  filter:drop-shadow(0 0 5px var(--wwd-glow));
+  opacity:0; transition:opacity .5s ease;               /* hidden until hover, then fades in and out */
+  animation:btn-orbit 2.6s linear infinite paused;      /* paused, so it freezes while fading out */
+  pointer-events:none;
+}
+@keyframes btn-orbit{to{--btn-angle:360deg}}
+.wwd-actions .btn:hover, .wwd-actions .btn:focus-visible{
+  transform:translateY(-2px); filter:none;
+  background:color-mix(in srgb, var(--wwd-text) 16%, transparent);
+  box-shadow:inset 0 1px 0 color-mix(in srgb, var(--wwd-text) 45%, transparent), 0 14px 34px rgba(0,0,0,.35);
+}
+.wwd-actions .btn:not(.ghost):hover, .wwd-actions .btn:not(.ghost):focus-visible{
+  background:color-mix(in srgb, var(--wwd-accent) 38%, transparent);
+  box-shadow:inset 0 1px 0 color-mix(in srgb, var(--wwd-text) 45%, transparent), 0 14px 34px color-mix(in srgb, var(--wwd-accent) 30%, transparent);
+}
+.wwd-actions .btn:hover::before, .wwd-actions .btn:focus-visible::before{opacity:1; animation-play-state:running}
+
+/* ---- Tablet: two across, third card spans the full row ---- */
+@media (max-width:999px){
+  .wwd-grid{grid-template-columns:repeat(2,1fr)}
+  .wwd-card:last-child{grid-column:1 / -1}
+}
+/* ---- Phone: one column, buttons stack full width ---- */
+@media (max-width:640px){
+  .wwd-grid{grid-template-columns:1fr}
+  .wwd-card:last-child{grid-column:auto}
+  .wwd .wwd-actions{flex-direction:column; align-items:stretch}
+  .wwd .wwd-actions .btn{width:100%; text-align:center}
+}
+
+/* ---- Visitors who prefer less motion ---- */
+@media (prefers-reduced-motion:reduce){
+  .wwd-card, .wwd-card::before, .wwd-icon, .wwd-arrow, .wwd-actions .btn{transition:none}
+  .wwd-card:hover, .wwd-actions .btn:hover{transform:none}
+  .wwd-actions .btn::before{animation:none; background:color-mix(in srgb, var(--wwd-glow) 55%, transparent)}
+}
+
+
+/* =============================================================
+   5. PACKAGES
+   Three image panels that expand on hover / tap / focus, plus a
+   closing strip. No prices. All classes start with pkx-. Text on
+   top of the photos is always light so it stays readable in both
+   themes.
+   ============================================================= */
+
+/* Lets the browser animate the border light's angle */
+@property --pkx-a { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+
+.pkx{
+  --pkx-text:  var(--bone, #ece7dd);
+  --pkx-muted: var(--mist, #8d93a0);
+  --pkx-line:  var(--line, #2f343e);
+  --pkx-gold:  #cfa75d;                                /* accent used on the photos */
+  --pkx-light: #f5f1e8;                                /* text on top of the photos */
+}
+
+/* ---- Header: heading left, text right ---- */
+.pkx-head{display:grid; grid-template-columns:1.1fr 1fr; gap:clamp(1.5rem, 5vw, 4rem); align-items:end; margin-bottom:clamp(2rem, 4vw, 3.2rem)}
+.pkx-label{display:inline-flex; align-items:center; gap:.8rem; margin:0 0 1rem; font-size:.85rem; letter-spacing:.16em; text-transform:uppercase; color:var(--brass, #cfa75d)}
+.pkx-label::before{content:""; width:36px; height:1px; background:currentColor}
+.pkx-head h2{margin:0; font-size:clamp(2rem, 4.2vw, 3.2rem); line-height:1.1}
+.pkx-head > p{margin:0; justify-self:end; max-width:46ch; color:var(--pkx-muted)}
+
+/* ---- Panels: the base layout is stacked with all content visible (phones, tablets, no JavaScript) ---- */
+.pkx-row{display:flex; flex-direction:column; gap:1rem}
+.pkx-panel{
+  position:relative; isolation:isolate; overflow:hidden; display:flex; flex-direction:column; justify-content:flex-end;
+  min-height:460px; border-radius:18px; border:1px solid var(--pkx-line); background:var(--g); outline-offset:3px;
+  --k:0;                                               /* order for the entrance stagger */
+  transition:opacity .9s ease calc(var(--k) * 120ms),
+             transform .9s cubic-bezier(.2,.7,.2,1) calc(var(--k) * 120ms),
+             flex-grow .8s cubic-bezier(.2,.7,.2,1);
+}
+.pkx-panel:nth-child(2){--k:1}
+.pkx-panel:nth-child(3){--k:2}
+
+/* Photo + dark gradient so the text is always readable */
+.pkx-img{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-2;
+  filter:brightness(.7); transform:scale(1.04);
+  transition:filter .8s ease, transform 1.2s cubic-bezier(.2,.7,.2,1);
+}
+.pkx-panel::after{content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(to top, rgba(10,11,14,.94) 8%, rgba(10,11,14,.55) 45%, rgba(10,11,14,.08))}
+
+/* Light that follows the cursor (position set by js/packages-section.js) */
+.pkx-glow{
+  position:absolute; inset:0; z-index:0; pointer-events:none; opacity:0; transition:opacity .4s ease;
+  background:radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(255,246,220,.16), transparent 60%);
+}
+.pkx-panel:hover .pkx-glow{opacity:1}
+
+/* A thin light that travels round the open panel's border */
+.pkx-panel::before{
+  content:""; position:absolute; inset:0; z-index:2; padding:2px; border-radius:inherit;
+  background:conic-gradient(from var(--pkx-a),
+    transparent 0 55%,
+    rgba(255,246,220,.25) 72%, rgba(255,246,220,.8) 92%, #fff6dc 99%, transparent 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask:linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  filter:drop-shadow(0 0 6px #fff6dc);
+  opacity:0; transition:opacity .6s ease; pointer-events:none;
+  animation:pkx-orbit 6s linear infinite;
+}
+.pkx-panel.is-active::before{opacity:1}
+@keyframes pkx-orbit{to{--pkx-a:360deg}}
+
+/* Icon badge (top left) */
+.pkx-icon{
+  position:absolute; top:1.3rem; left:1.3rem; z-index:3; display:grid; place-items:center; width:50px; height:50px; border-radius:50%;
+  color:var(--pkx-gold); background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.22);
+  -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+}
+.pkx-icon svg{width:24px; height:24px}
+
+.pkx-vtitle{display:none}                              /* vertical title: only used when a panel is collapsed (desktop) */
+
+/* Text block */
+.pkx-body{position:relative; z-index:3; display:grid; gap:.95rem; padding:1.6rem; max-width:520px; color:var(--pkx-light)}
+.pkx-body h3{margin:0; font-size:clamp(1.5rem, 2.4vw, 1.9rem); color:var(--pkx-light)}
+.pkx-body p{margin:0; color:rgba(245,241,232,.8)}
+
+/* Chips listing what each package covers */
+.pkx-chips{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:.45rem}
+.pkx-chips li{padding:.3rem .8rem; border-radius:999px; font-size:.85rem; color:var(--pkx-light); background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18)}
+
+/* Button with a sliding arrow */
+.pkx-btn{
+  display:inline-flex; align-items:center; gap:.7rem; justify-self:start; width:fit-content; padding:.85rem 1.6rem; border-radius:999px; text-decoration:none;
+  font:inherit; font-size:.82rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+  color:#15171c; background:var(--pkx-gold); border:1px solid var(--pkx-gold);
+  transition:transform .3s ease, box-shadow .3s ease, filter .3s ease;
+}
+.pkx-btn svg{width:18px; height:18px; transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.pkx-btn:hover, .pkx-btn:focus-visible{transform:translateY(-2px); filter:brightness(1.08); box-shadow:0 10px 26px rgba(207,167,93,.35)}
+.pkx-btn:hover svg, .pkx-btn:focus-visible svg{transform:translateX(5px)}
+
+/* ---- Closing strip ---- */
+.pkx-cta{
+  display:flex; align-items:center; justify-content:space-between; gap:2rem;
+  margin-top:1rem; padding:clamp(1.6rem, 3vw, 2.4rem) clamp(1.5rem, 3vw, 2.8rem);
+  border:1px solid var(--pkx-line); border-radius:18px;
+  background:linear-gradient(110deg, color-mix(in srgb, var(--brass, #cfa75d) 12%, transparent) 0, transparent 40%, color-mix(in srgb, var(--brass, #cfa75d) 18%, transparent) 60%, transparent 100%);
+  background-size:200% 100%;
+  animation:pkx-sheen 10s linear infinite;             /* slow light sweeping across */
+}
+.pkx-cta h3{margin:0 0 .5rem; font-size:clamp(1.5rem, 3vw, 2rem)}
+.pkx-cta p{margin:0; max-width:56ch; color:var(--pkx-muted)}
+.pkx-cta .pkx-btn{flex:none}
+@keyframes pkx-sheen{to{background-position:-200% 0}}
+
+/* ---- Entrance: panels rise in one after another (class added by the script) ---- */
+.pkx.anim:not(.in) .pkx-panel{opacity:0; transform:translateY(36px)}
+
+/* ---- Tablet and phone: stacked, buttons and strip adapt ---- */
+@media (max-width:899px){
+  .pkx-head{grid-template-columns:1fr; align-items:start}
+  .pkx-head > p{justify-self:start}
+  .pkx-cta{flex-direction:column; align-items:flex-start}
+}
+@media (max-width:560px){
+  .pkx-panel{min-height:480px}
+  .pkx-body{padding:1.3rem}
+  .pkx-btn, .pkx-cta .pkx-btn{width:100%; justify-content:center}
+}
+
+/* ---- Desktop: the expanding panels ---- */
+@media (min-width:900px){
+  .pkx-row{flex-direction:row; height:clamp(520px, 70vh, 660px)}
+  .pkx.js .pkx-panel{flex:1 1 0; min-width:0; min-height:0; cursor:pointer}
+  .pkx.js .pkx-panel.is-active{flex-grow:3.4; cursor:default}
+
+  /* Collapsed panels: darker, desaturated photo + vertical title */
+  .pkx.js .pkx-panel:not(.is-active) .pkx-img{filter:grayscale(.85) brightness(.5); transform:scale(1.12)}
+  .pkx.js .pkx-panel.is-active .pkx-img{filter:brightness(.85); transform:scale(1.02)}
+  .pkx.js .pkx-vtitle{
+    display:block; position:absolute; left:50%; bottom:1.8rem; z-index:3;
+    writing-mode:vertical-rl; transform:translateX(-50%) rotate(180deg);
+    font:400 1.5rem Fraunces, Georgia, serif; letter-spacing:.04em; color:var(--pkx-light); transition:opacity .35s ease;
+  }
+  .pkx.js .pkx-panel.is-active .pkx-vtitle{opacity:0}
+
+  /* The text block has a fixed width, so it doesn't re-wrap while the panel grows */
+  .pkx.js .pkx-body{position:absolute; left:0; bottom:0; width:480px; max-width:none; padding:2.2rem; visibility:hidden}
+  .pkx.js .pkx-panel.is-active .pkx-body{visibility:visible}
+  .pkx.js .pkx-body > *{opacity:0; transform:translateY(18px); transition:opacity .35s ease, transform .35s ease}
+  .pkx.js .pkx-panel.is-active .pkx-body > *{opacity:1; transform:none; transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1)}
+  .pkx.js .pkx-panel.is-active .pkx-body > :nth-child(1){transition-delay:.30s}
+  .pkx.js .pkx-panel.is-active .pkx-body > :nth-child(2){transition-delay:.40s}
+  .pkx.js .pkx-panel.is-active .pkx-body > :nth-child(3){transition-delay:.50s}
+  .pkx.js .pkx-panel.is-active .pkx-body > :nth-child(4){transition-delay:.60s}
+}
+
+/* ---- Visitors who prefer less motion ---- */
+@media (prefers-reduced-motion:reduce){
+  .pkx-panel, .pkx-img, .pkx-btn, .pkx-btn svg, .pkx-body > *{transition:none!important}
+  .pkx-panel::before, .pkx-cta{animation:none}
+  .pkx.anim:not(.in) .pkx-panel{opacity:1; transform:none}
+}
+
+
+/* =============================================================
+   6. CLOSING CALL TO ACTION
+   Compact dark panel: heading on the left, text and a glass
+   button on the right. Isolated: every class starts with ccta-,
+   and the shared .cta class used on other pages is untouched.
+   ============================================================= */
+
+/* Lets the browser animate the angle of the light that travels round the button border */
+@property --ccta-a { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+
+
+.ccta{padding:clamp(2rem, 5vw, 4rem) 0}                /* space above and below the panel (keep small for a short section) */
+
+/* ---- The panel (stays dark in light mode on purpose) ---- */
+.ccta-panel{
+  --brass:#cfa75d; --bone:#f5f1e8;                     /* local colours, so the shared .btn tokens stay gold on dark */
+  position:relative; isolation:isolate; overflow:hidden;
+  display:grid; grid-template-columns:1.25fr 1fr; align-items:end; gap:clamp(1.5rem, 5vw, 4rem);
+  padding:clamp(2rem, 5vw, 3.8rem); border-radius:28px; color:var(--bone);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 24px 60px rgba(0,0,0,.28);
+  background:radial-gradient(ellipse at 15% 0%, rgba(207,167,93,.18), transparent 55%), #0b0c10;   /* shows when there is no photo */
+}
+
+/* Photo + dark gradient from the left, so the text is always readable */
+.ccta-bg{position:absolute; inset:0; z-index:-2}
+.ccta-bg img{width:100%; height:100%; object-fit:cover; display:block; filter:brightness(.6) saturate(.9); animation:ccta-drift 22s ease-in-out infinite alternate}   /* very slow push-in */
+.ccta-panel::after{content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(95deg, rgba(11,12,16,.93) 0, rgba(11,12,16,.72) 48%, rgba(11,12,16,.35) 100%)}
+.ccta-glow{                                            /* soft gold light that drifts slowly in the corner */
+  position:absolute; z-index:-1; right:-10%; top:-40%; width:60%; aspect-ratio:1; pointer-events:none;
+  background:radial-gradient(closest-side, rgba(207,167,93,.22), transparent); filter:blur(10px);
+  animation:ccta-glow 14s ease-in-out infinite alternate;
+}
+
+/* ---- Text ---- */
+.ccta-label{display:inline-flex; align-items:center; gap:.8rem; margin:0 0 1.1rem; font-size:.8rem; letter-spacing:.2em; text-transform:uppercase; color:var(--brass)}
+.ccta-label::before{content:""; width:32px; height:1px; background:currentColor}
+.ccta-panel h2{margin:0; max-width:16ch; font-size:clamp(2rem, 4.4vw, 3.6rem); line-height:1.05; letter-spacing:-.015em; color:var(--bone)}
+.ccta-panel h2 em{font-style:italic; color:var(--brass)}
+.ccta-text{margin:0 0 1.8rem; max-width:44ch; font-size:clamp(1rem, 1.3vw, 1.1rem); line-height:1.7; color:rgba(245,241,232,.8)}
+
+/* ---- Glass button (still your brand gold, as a tint) ---- */
+.ccta .ccta-btn{
+  position:relative; isolation:isolate; display:inline-flex; align-items:center; gap:.9rem;
+  min-height:54px; padding:.95rem 1.9rem; border-radius:999px;
+  font-size:.85rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:#fff;
+  background:color-mix(in srgb, var(--brass) 20%, rgba(255,255,255,.08));                 /* see-through gold tint */
+  border:1px solid rgba(255,255,255,.28);
+  -webkit-backdrop-filter:blur(14px) saturate(150%); backdrop-filter:blur(14px) saturate(150%);   /* the frosted-glass blur */
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.4), inset 0 -1px 0 rgba(255,255,255,.06), 0 12px 30px rgba(0,0,0,.35);
+  transition:transform .35s ease, background .35s ease, border-color .35s ease, box-shadow .35s ease;
+}
+.ccta .ccta-btn::before{                               /* light that travels round the border on hover, then fades out */
+  content:""; position:absolute; inset:-1px; padding:2px; border-radius:inherit; z-index:-1;
+  background:conic-gradient(from var(--ccta-a),
+    transparent 0 55%,
+    rgba(255,246,220,.3) 72%, rgba(255,246,220,.8) 92%, #fff6dc 99%, transparent 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask:linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  filter:drop-shadow(0 0 5px #fff6dc);
+  opacity:0; transition:opacity .5s ease; animation:ccta-orbit 2.6s linear infinite paused; pointer-events:none;
+}
+.ccta .ccta-btn svg{width:19px; height:19px; flex:none; transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.ccta .ccta-btn:hover, .ccta .ccta-btn:focus-visible{
+  transform:translateY(-2px); filter:none;
+  background:color-mix(in srgb, var(--brass) 34%, rgba(255,255,255,.1));
+  border-color:rgba(207,167,93,.7);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.5), 0 16px 38px rgba(0,0,0,.4), 0 0 26px rgba(207,167,93,.3);
+}
+.ccta .ccta-btn:hover::before, .ccta .ccta-btn:focus-visible::before{opacity:1; animation-play-state:running}
+.ccta .ccta-btn:hover svg, .ccta .ccta-btn:focus-visible svg{transform:translate(4px,-4px)}   /* arrow flies up and right */
+
+/* ---- Entrance (only when JavaScript is running; without it everything just shows) ---- */
+.ccta.js .ccta-panel{opacity:0; transform:translateY(28px) scale(.985); transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1)}
+.ccta.js .ccta-label, .ccta.js .ccta-panel h2, .ccta.js .ccta-text, .ccta.js .ccta-btn{opacity:0; transform:translateY(18px)}
+.ccta.js.in .ccta-panel{opacity:1; transform:none}
+.ccta.js.in .ccta-label, .ccta.js.in .ccta-panel h2, .ccta.js.in .ccta-text, .ccta.js.in .ccta-btn{opacity:1; transform:none; transition:opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1)}
+.ccta.js.in .ccta-label{transition-delay:.25s}
+.ccta.js.in .ccta-panel h2{transition-delay:.4s}
+.ccta.js.in .ccta-text{transition-delay:.6s}
+.ccta.js.in .ccta-btn{transition:opacity .8s ease .75s, transform .8s cubic-bezier(.2,.7,.2,1) .75s, background .35s ease, border-color .35s ease, box-shadow .35s ease}
+.ccta.js.in .ccta-btn:hover, .ccta.js.in .ccta-btn:focus-visible{transform:translateY(-2px); transition-delay:0s}
+
+@keyframes ccta-drift{from{transform:scale(1.04)} to{transform:scale(1.12) translate(-1.5%,-1%)}}
+@keyframes ccta-glow{from{transform:translate(0,0)} to{transform:translate(-12%,14%) scale(1.15)}}
+@keyframes ccta-orbit{to{--ccta-a:360deg}}
+
+/* ---- Tablet and phone: one column ---- */
+@media (max-width:860px){
+  .ccta-panel{grid-template-columns:1fr; align-items:start; border-radius:22px}
+  .ccta-panel h2{max-width:none}
+  .ccta-text{margin-bottom:1.5rem}
+}
+@media (max-width:560px){.ccta .ccta-btn{width:100%; justify-content:center}}
+
+/* ---- Visitors who prefer less motion: nothing moves, everything is visible ---- */
+@media (prefers-reduced-motion:reduce){
+  .ccta-bg img, .ccta-glow{animation:none}
+  .ccta .ccta-btn::before{animation:none; background:rgba(255,246,220,.55)}
+  .ccta .ccta-btn, .ccta .ccta-btn svg{transition:none}
+}
+

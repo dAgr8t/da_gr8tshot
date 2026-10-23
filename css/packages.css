@@ -1,0 +1,13 @@
+/* =============================================================
+   packages.css
+   Packages page only: two-column package cards with an
+   expandable "View details" list.
+   ============================================================= */
+.pk{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem;margin-top:2.5rem}
+.pk article{border:1px solid var(--line);padding:2rem;border-radius:2px}
+.pk .price{margin:.2rem 0 1rem}
+.pk details{border:0;border-top:1px solid var(--line);padding:1rem 0 0;margin-top:1.2rem;max-width:none}
+.pk summary{font:600 .9rem Figtree,sans-serif;text-transform:uppercase;letter-spacing:.1em}
+.pk ul{margin:.9rem 0 0;padding-left:1.1rem;color:var(--mist)}
+.pk li{padding:.2rem 0}
+@media (max-width:860px){.pk{grid-template-columns:1fr}}

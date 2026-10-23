@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>dA_gr8t Shot | Portrait, Event and Studio Photography</title>
+<meta name="description" content="Portrait, event and studio photography built around stories.">
+<meta name="theme-color" content="#000000">
+
+<!-- Social sharing preview. When the site is live, also add an og:image tag with the full web address of a photo, e.g.
+     <meta property="og:image" content="https://yourdomain.com/images/share.jpg"> -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="dA_gr8t Shot | Portrait, Event and Studio Photography">
+<meta property="og:description" content="Portrait, event and studio photography built around stories.">
+
+<!-- Favicon: a small gold lens icon built into the page. Replace with your own file when you have one, e.g. <link rel="icon" href="images/favicon.png"> -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23000'/%3E%3Ccircle cx='32' cy='32' r='15' fill='none' stroke='%23cfa75d' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='4.5' fill='%23cfa75d'/%3E%3C/svg%3E">
+
+<!-- Fonts (Google Fonts) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Stylesheets: shared files first, then this page's own file -->
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/home.css">
+</head>
+<body data-page="home">
+
+<!-- SITE HEADER: logo, menu and "Our packages" button are built by js/layout.js -->
+<header id="site-header"></header>
+
+<main>
+
+<!-- 1. HERO: full-screen dark section. Photos scroll behind centred text; a soft light follows the cursor (js/home.js). -->
+<section class="hero" id="hero">
+  <div class="wrap herogrid">
+    <div class="copy">
+      <h1>We're here to capture <br> <span class="mark">beautiful</span> moments.</h1>
+      <p>Framing Moments That Matter. Every moment tells a story. Let's capture yours in a way you’ll cherish forever.</p>
+      <div class="actions"><a class="btn" href="index.html#pricing">Get started</a></div>
+    </div>
+
+    <!-- Decoration: vertical "Creative" label (left edge) -->
+    <span class="vlabel" aria-hidden="true">Creative</span>
+
+    <!-- Decoration: spinning "Scroll down" badge (bottom right) -->
+    <svg class="badge" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="bc" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs><text font-size="11" fill="currentColor" letter-spacing="3.4"><textPath href="#bc">SCROLL DOWN • SCROLL DOWN •</textPath></text></svg>
+
+    <!-- Scrolling photo background: 5 columns, alternating up/down. Photos are added by js/frames.js from data/photos.js. -->
+    <div class="marq" aria-hidden="true">
+      <div class="col">
+        <div class="frame" style="--g:linear-gradient(160deg,#7a5a45,#1c1a1f)"></div>
+        <div class="frame" style="--g:linear-gradient(200deg,#3d5a6b,#171c24);aspect-ratio:1"></div>
+        <div class="frame" style="--g:linear-gradient(140deg,#8a7a4a,#1b1c20);aspect-ratio:4/5"></div>
+        <div class="frame" style="--g:linear-gradient(180deg,#5a3f6a,#16161d)"></div>
+      </div>
+      <div class="col dn">
+        <div class="frame" style="--g:linear-gradient(210deg,#5a7a4a,#15191a);aspect-ratio:4/5"></div>
+        <div class="frame" style="--g:linear-gradient(150deg,#7a3f4a,#1a171b)"></div>
+        <div class="frame" style="--g:linear-gradient(170deg,#4a6a8a,#14181f)"></div>
+        <div class="frame" style="--g:linear-gradient(130deg,#8a5a3a,#1d1a18);aspect-ratio:1"></div>
+      </div>
+      <div class="col">
+        <div class="frame" style="--g:linear-gradient(190deg,#6a6a8a,#15151c);aspect-ratio:1"></div>
+        <div class="frame" style="--g:linear-gradient(145deg,#4a7a6a,#151b1a);aspect-ratio:4/5"></div>
+        <div class="frame" style="--g:linear-gradient(165deg,#8a4a5a,#1b1519)"></div>
+        <div class="frame" style="--g:linear-gradient(205deg,#7a7a4a,#1b1b16);aspect-ratio:4/5"></div>
+      </div>
+      <div class="col dn">
+        <div class="frame" style="--g:linear-gradient(160deg,#6a4a8a,#17151d);aspect-ratio:1"></div>
+        <div class="frame" style="--g:linear-gradient(200deg,#8a6a4a,#1e1b1c)"></div>
+        <div class="frame" style="--g:linear-gradient(140deg,#4a8a7a,#14191a);aspect-ratio:4/5"></div>
+        <div class="frame" style="--g:linear-gradient(185deg,#8a4a4a,#1a1517)"></div>
+      </div>
+      <div class="col">
+        <div class="frame" style="--g:linear-gradient(150deg,#4a5a8a,#14161d);aspect-ratio:4/5"></div>
+        <div class="frame" style="--g:linear-gradient(195deg,#8a7a5a,#1c1b1a)"></div>
+        <div class="frame" style="--g:linear-gradient(170deg,#5a8a5a,#151a15);aspect-ratio:1"></div>
+        <div class="frame" style="--g:linear-gradient(130deg,#7a4a7a,#1a161a)"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 2. ABOUT US: two columns. Left: main image with a travelling glowing border and a small floating image on its left edge. Right: text and button. -->
+<section class="about-section" id="about" aria-labelledby="about-title">
+  <div class="wrap ab-grid">
+
+    <!-- Left: images -->
+    <div class="ab-visual">
+      <!-- The wrapper draws the glowing border; the image sits inside it -->
+      <div class="ab-frame">
+        <img class="ab-main" src="images/about-us2.jpeg" alt="The photographer at work in the studio" width="640" height="800" loading="lazy">
+      </div>
+      <!-- Small image overlapping the left edge, vertically centred; floats up and down -->
+      <div class="ab-small">
+        <img src="images/about-us3.jpeg" alt="Behind the scenes of a shoot" width="300" height="300" loading="lazy">
+      </div>
+    </div>
+
+    <!-- Right: content -->
+    <div class="ab-content">
+      <p class="ab-eyebrow">About us</p>
+      <h2 id="about-title">Stories told through the lens</h2>
+      <p>At dA_gr8t Shot, we believe every photograph tells a story and every moment deserves to be remembered. We are passionate about capturing life's beautiful moments, genuine emotions, and little details that make every experience special.</p>
+      <p>With creativity, attention to detail, and a personal approach, we create photographs that reflect your story and preserve the memories that matter most.</p>
+      <p>Whether it's a wedding, a birthday, a portrait session, a family gathering, or a special milestone, we are here to turn fleeting moments into lasting memories.</p>
+      <a class="btn btn-glass" href="about.html">
+        <span>Learn more</span>
+        <svg class="arrow" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 12h15M13 6l6 6-6 6"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- 3. SELECTED WORK: a bento grid of six photos from data/photos.js, with a link to the full portfolio (js/selected-work.js) -->
+<section class="ws" id="work" aria-labelledby="ws-title">
+  <div class="wrap">
+
+    <!-- Header: heading on the left, button on the right -->
+    <div class="ws-head">
+      <div>
+        <p class="ws-label">Portfolio</p>
+        <h2 id="ws-title">Selected Work</h2>
+        <p>A look at recent shoots. Every frame starts with the story behind it.</p>
+      </div>
+      <a class="ws-btn" href="portfolio.html">
+        View full portfolio
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <!-- The six tiles are built by js/selected-work.js -->
+    <div class="ws-grid" id="ws-grid"></div>
+    <noscript><p>See the work in the <a href="portfolio.html">portfolio</a>.</p></noscript>
+
+  </div>
+</section>
+
+
+<!-- 4. WHAT WE DO: label, heading, three service cards (no photos), two buttons -->
+<section class="wwd" id="services" aria-labelledby="wwd-title">
+  <div class="wrap">
+
+    <!-- Section header -->
+    <div class="wwd-head">
+      <p class="wwd-label">What we do</p>
+      <h2 id="wwd-title">Turning Moments Into Memories.</h2>
+      <p>We capture the moments that matter and turn them into stories worth remembering.</p>
+    </div>
+
+    <!-- Three service cards (each one links to the Services page) -->
+    <div class="wwd-grid">
+
+      <a class="wwd-card" href="services.html">
+        <span class="wwd-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="12" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 7l1.5-2h5L16 7"/></svg>
+        </span>
+        <h3>Photography</h3>
+        <p>We capture genuine emotions and beautiful moments, creating timeless photographs you'll treasure for years to come.</p>
+        <span class="wwd-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <a class="wwd-card" href="services.html">
+        <span class="wwd-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6" width="13" height="12" rx="2"/><path d="M15.5 10.5l6-3.5v10l-6-3.5z"/></svg>
+        </span>
+        <h3>Videography</h3>
+        <p>We bring your story to life through creative films that preserve the feelings, details, and memories of every moment.</p>
+        <span class="wwd-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <a class="wwd-card" href="services.html">
+        <span class="wwd-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M12 13.2l.9 1.8 2-.3-.9 1.8.9 1.8-2-.3-.9 1.8-.9-1.8-2 .3.9-1.8-.9-1.8 2 .3z"/></svg>
+        </span>
+        <h3>Event Coverage</h3>
+        <p>From weddings and birthdays to corporate events, we capture the highlights that make every occasion special.</p>
+        <span class="wwd-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+    </div>
+
+    <!-- Buttons -->
+    <div class="wwd-actions">
+      <a class="btn" href="contact.html">Contact Us</a>
+      <a class="btn ghost" href="services.html">Browse All Services</a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- 5. PACKAGES: three image panels that expand on hover, tap or keyboard focus (js/packages-section.js). No prices. -->
+<section class="pkx" id="pricing" aria-labelledby="pkx-title">
+  <div class="wrap">
+
+    <!-- Header: heading on the left, supporting text on the right -->
+    <div class="pkx-head">
+      <div>
+        <p class="pkx-label">Packages</p>
+        <h2 id="pkx-title">Packages Built Around Your Project</h2>
+      </div>
+      <p>Every moment is different. Whether it's a personal photoshoot, a special celebration, or a major event, we offer flexible packages tailored to your needs and budget.</p>
+    </div>
+
+    <!-- The three panels. The one with "is-active" starts open. -->
+    <div class="pkx-row">
+
+      <article class="pkx-panel is-active" tabindex="0" aria-label="Photography Packages" style="--g:linear-gradient(160deg,#6b4f3a,#1c1a1f)">
+        <img class="pkx-img" src="images/about-us5.jpeg" alt="" loading="lazy">
+        <span class="pkx-glow" aria-hidden="true"></span>
+        <span class="pkx-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="12" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 7l1.5-2h5L16 7"/></svg></span>
+        <span class="pkx-vtitle" aria-hidden="true">Photography</span>
+        <div class="pkx-body">
+          <h3>Photography Packages</h3>
+          <p>Photography for personal and professional moments, shaped around what you need.</p>
+          <ul class="pkx-chips">
+            <li>Personal portraits</li><li>Birthdays</li><li>Graduations</li>
+            <li>Personal branding</li><li>Weddings</li><li>Event photography</li>
+          </ul>
+          <a class="pkx-btn" href="contact.html">Request a Quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </article>
+
+      <article class="pkx-panel" tabindex="0" aria-label="Videography Packages" style="--g:linear-gradient(160deg,#3d5a6b,#171c24)">
+        <img class="pkx-img" src="images/about-us4.jpeg" alt="" loading="lazy">
+        <span class="pkx-glow" aria-hidden="true"></span>
+        <span class="pkx-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="13" height="12" rx="2"/><path d="M15.5 10.5l6-3.5v10l-6-3.5z"/></svg></span>
+        <span class="pkx-vtitle" aria-hidden="true">Videography</span>
+        <div class="pkx-body">
+          <h3>Videography Packages</h3>
+          <p>Films that tell your story, from personal projects to promotional content and events.</p>
+          <ul class="pkx-chips">
+            <li>Personal films</li><li>Creative videos</li><li>Promotional videos</li><li>Event films</li>
+          </ul>
+          <a class="pkx-btn" href="contact.html">Request a Quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </article>
+
+      <article class="pkx-panel" tabindex="0" aria-label="Combined Photo and Video" style="--g:linear-gradient(160deg,#5a4a7a,#171520)">
+        <img class="pkx-img" src="images/about-us3.jpeg" alt="" loading="lazy">
+        <span class="pkx-glow" aria-hidden="true"></span>
+        <span class="pkx-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M7 8l1.5-3h7L17 8"/><path d="M10 11.5l5 2.5-5 2.5z"/></svg></span>
+        <span class="pkx-vtitle" aria-hidden="true">Photo &amp; Video</span>
+        <div class="pkx-body">
+          <h3>Combined Photo &amp; Video</h3>
+          <p>Photography and videography together, so your whole occasion is covered in both.</p>
+          <ul class="pkx-chips">
+            <li>Weddings</li><li>Birthdays</li><li>Celebrations</li><li>Corporate events</li>
+          </ul>
+          <a class="pkx-btn" href="contact.html">Request a Quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Closing strip -->
+    <div class="pkx-cta">
+      <div>
+        <h3>Have Something Different in Mind?</h3>
+        <p>Tell us what you're planning, and we'll help create a package that suits your vision, requirements and budget.</p>
+      </div>
+      <a class="pkx-btn" href="contact.html">Discuss Your Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- 6. CLOSING CALL TO ACTION: compact dark panel, heading left, text + glass button right (js/closing-cta.js) -->
+<section class="ccta" id="contact-cta" aria-labelledby="ccta-title">
+  <div class="wrap">
+    <div class="ccta-panel">
+
+      <!-- Background photo (slow push-in) + drifting gold light. If the photo is missing, a gradient shows instead. -->
+      <div class="ccta-bg" aria-hidden="true">
+        <img src="images/call2.png" alt="" loading="lazy" onerror="this.remove()">
+      </div>
+      <span class="ccta-glow" aria-hidden="true"></span>
+
+      <!-- Left: label + heading -->
+      <div class="ccta-main">
+        <p class="ccta-label">Let's create something special</p>
+        <h2 id="ccta-title">Your Moments Deserve to Be <em>Remembered.</em></h2>
+      </div>
+
+      <!-- Right: supporting text + the only button (glass, linked to the existing contact page) -->
+      <div class="ccta-side">
+        <p class="ccta-text">From meaningful portraits to unforgettable celebrations, we're here to capture your story beautifully. Let's create something you'll cherish for years to come.</p>
+        <a class="btn ccta-btn" href="contact.html">
+          Book Your Session
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+</main>
+
+<!-- SITE FOOTER: built by js/layout.js -->
+<footer id="site-footer"></footer>
+
+<!-- Scripts. Order matters: data first, then shared helpers, then this page's own scripts -->
+<script src="data/site.js"></script>
+<script src="data/photos.js"></script>
+<script src="js/frames.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/reveal.js"></script>
+<script src="js/home.js"></script>
+<script src="js/selected-work.js"></script>
+<script src="js/packages-section.js"></script>
+<script src="js/closing-cta.js"></script>
+</body>
+</html>

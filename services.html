@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Services | dA_gr8t Shot</title>
+<meta name="description" content="Photography, videography and event coverage for portraits, weddings, birthdays, celebrations and corporate events.">
+<meta name="theme-color" content="#000000">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Services | dA_gr8t Shot">
+<meta property="og:description" content="Photography, videography and event coverage, planned around you.">
+
+<!-- Favicon: a small gold lens icon built into the page. Replace with your own file when you have one. -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23000'/%3E%3Ccircle cx='32' cy='32' r='15' fill='none' stroke='%23cfa75d' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='4.5' fill='%23cfa75d'/%3E%3C/svg%3E">
+
+<!-- Fonts (Google Fonts) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Stylesheets: shared files first, then this page's own files -->
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/page-header.css">
+<link rel="stylesheet" href="css/services.css">
+<!-- <link rel="stylesheet" href="css/closing-cta.css"> -->
+</head>
+<body data-page="services">
+
+<!-- SITE HEADER: logo, menu and "Our packages" button are built by js/layout.js -->
+<header id="site-header"></header>
+
+<main class="svc">
+
+<!-- PAGE BANNER: title + breadcrumb over scrolling photo columns (columns are built by js/page-header.js) -->
+<section class="phero">
+  <div class="wrap">
+    <p class="crumb"><a href="index.html">Home</a><i class="sep"></i>Services</p>
+    <h1>Services</h1>
+  </div>
+  <div class="rows" aria-hidden="true"></div>
+</section>
+
+
+<!-- 1. INTRO: heading, short text and quick links that jump to each service -->
+<section class="svc-intro" aria-labelledby="svc-intro-title">
+  <div class="wrap">
+    <div class="svc-head svc-reveal">
+      <p class="svc-eyebrow">Our services</p>
+      <h2 id="svc-intro-title">Three Ways We Capture Your Story</h2>
+      <p>Choose one service or combine them. Every project is planned around you and quoted individually, so the quote reflects what your occasion actually needs.</p>
+    </div>
+
+    <!-- Jump links (each goes to a service below) -->
+    <div class="svc-jump svc-reveal" style="--i:1" aria-label="Jump to a service">
+      <a href="#photography">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="12" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 7l1.5-2h5L16 7"/></svg>
+        Photography
+      </a>
+      <a href="#videography">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6" width="13" height="12" rx="2"/><path d="M15.5 10.5l6-3.5v10l-6-3.5z"/></svg>
+        Videography
+      </a>
+      <a href="#events">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M12 13.2l.9 1.8 2-.3-.9 1.8.9 1.8-2-.3-.9 1.8-.9-1.8-2 .3.9-1.8-.9-1.8 2 .3z"/></svg>
+        Event Coverage
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- 2. PHOTOGRAPHY: photo on the left, details on the right.
+     The three service photos are the first three in data/photos.js (filled in by js/frames.js). -->
+<section class="svc-row" id="photography" aria-labelledby="svc-photo-title">
+  <div class="wrap svc-grid">
+    <div class="svc-media svc-reveal">
+      <div class="frame" style="--g:linear-gradient(160deg,#6b4f3a,#1c1a1f)"></div>
+      <span class="svc-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="12" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 7l1.5-2h5L16 7"/></svg></span>
+    </div>
+    <div class="svc-text svc-reveal" style="--i:1">
+      <span class="svc-num" aria-hidden="true">01</span>
+      <h2 id="svc-photo-title">Photography</h2>
+      <p>We capture genuine emotions and beautiful moments, creating timeless photographs you'll treasure for years to come. From a quiet portrait to a milestone celebration, every session is planned around you.</p>
+      <p class="svc-for">Perfect for</p>
+      <ul class="svc-pills">
+        <li>Personal portraits</li><li>Birthdays</li><li>Graduations</li>
+        <li>Personal branding</li><li>Weddings</li><li>Event photography</li>
+      </ul>
+      <a class="svc-link" href="contact.html">Request a quote
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- 3. VIDEOGRAPHY: details on the left, photo on the right (class "flip" swaps the sides) -->
+<section class="svc-row flip" id="videography" aria-labelledby="svc-video-title">
+  <div class="wrap svc-grid">
+    <div class="svc-media svc-reveal">
+      <div class="frame" style="--g:linear-gradient(160deg,#3d5a6b,#171c24)"></div>
+      <span class="svc-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="13" height="12" rx="2"/><path d="M15.5 10.5l6-3.5v10l-6-3.5z"/></svg></span>
+    </div>
+    <div class="svc-text svc-reveal" style="--i:1">
+      <span class="svc-num" aria-hidden="true">02</span>
+      <h2 id="svc-video-title">Videography</h2>
+      <p>We bring your story to life through creative films that preserve the feelings, details, and memories of every moment. Movement and sound hold on to what a still image can't.</p>
+      <p class="svc-for">Perfect for</p>
+      <ul class="svc-pills">
+        <li>Personal films</li><li>Creative videos</li><li>Promotional videos</li><li>Event films</li>
+      </ul>
+      <a class="svc-link" href="contact.html">Request a quote
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- 4. EVENT COVERAGE -->
+<section class="svc-row" id="events" aria-labelledby="svc-event-title">
+  <div class="wrap svc-grid">
+    <div class="svc-media svc-reveal">
+      <div class="frame" style="--g:linear-gradient(160deg,#5a4a7a,#171520)"></div>
+      <span class="svc-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M12 13.2l.9 1.8 2-.3-.9 1.8.9 1.8-2-.3-.9 1.8-.9-1.8-2 .3.9-1.8-.9-1.8 2 .3z"/></svg></span>
+    </div>
+    <div class="svc-text svc-reveal" style="--i:1">
+      <span class="svc-num" aria-hidden="true">03</span>
+      <h2 id="svc-event-title">Event Coverage</h2>
+      <p>From weddings and birthdays to corporate events, we capture the highlights that make every occasion special, so you can be part of the day instead of worrying about recording it.</p>
+      <p class="svc-for">Perfect for</p>
+      <ul class="svc-pills">
+        <li>Weddings</li><li>Birthdays</li><li>Celebrations</li><li>Corporate events</li>
+      </ul>
+      <a class="svc-link" href="contact.html">Request a quote
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- 5. BETTER TOGETHER: photography and videography combined -->
+<section class="svc-both" aria-labelledby="svc-both-title">
+  <div class="wrap">
+    <div class="svc-both-panel svc-reveal">
+      <div>
+        <p class="svc-eyebrow">Combined coverage</p>
+        <h2 id="svc-both-title">Better Together</h2>
+        <p>Photography and videography side by side, so your whole occasion is covered in both. You keep the stills and the feeling of the day.</p>
+        <ul class="svc-pills">
+          <li>Weddings</li><li>Birthdays</li><li>Celebrations</li><li>Corporate events</li>
+        </ul>
+        <a class="svc-link" href="contact.html">Request a quote
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <!-- Decoration: a camera and a video camera joined by a plus, floating gently -->
+      <div class="svc-both-art" aria-hidden="true">
+        <span class="svc-orb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="12" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 7l1.5-2h5L16 7"/></svg></span>
+        <span class="svc-plus">+</span>
+        <span class="svc-orb two"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="13" height="12" rx="2"/><path d="M15.5 10.5l6-3.5v10l-6-3.5z"/></svg></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 6. FIND YOUR FIT: pick an occasion and we suggest where to start (buttons are built by js/services-page.js; the text below shows without JavaScript) -->
+<section class="svc-pick alt" aria-labelledby="svc-pick-title">
+  <div class="wrap svc-pick-grid">
+
+    <div class="svc-reveal">
+      <p class="svc-eyebrow">Find your fit</p>
+      <h2 id="svc-pick-title">What Are You Planning?</h2>
+      <p>Choose an occasion and we'll suggest where to start.</p>
+      <div class="svc-occ" id="svc-occ" role="radiogroup" aria-label="Choose an occasion"></div>
+    </div>
+
+    <div class="svc-result svc-reveal" style="--i:1" id="svc-result" aria-live="polite">
+      <p class="svc-result-label">Our suggestion</p>
+      <h3 id="svc-result-title">Not sure which service fits?</h3>
+      <p id="svc-result-text">Tell us about your occasion and we'll point you in the right direction.</p>
+      <a class="svc-link" id="svc-result-link" href="contact.html">Request a quote
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- 5. CLOSING CALL TO ACTION: same component as the home page (css/closing-cta.css and js/closing-cta.js) -->
+<section class="ccta" id="contact-cta" aria-labelledby="ccta-title">
+  <div class="wrap">
+    <div class="ccta-panel">
+
+      <div class="ccta-bg" aria-hidden="true">
+        <img src="images/call2.png" alt="" loading="lazy" onerror="this.remove()">
+      </div>
+      <span class="ccta-glow" aria-hidden="true"></span>
+
+      <div class="ccta-main">
+        <p class="ccta-label">Let's work together</p>
+        <h2 id="ccta-title">Ready to Tell <em>Your Story?</em></h2>
+      </div>
+
+      <div class="ccta-side">
+        <p class="ccta-text">Tell us about your occasion, and we'll help plan the photographs or film that bring it to life.</p>
+        <a class="btn ccta-btn" href="contact.html">
+          Book Your Session
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- SITE FOOTER: built by js/layout.js -->
+<footer id="site-footer"></footer>
+
+<!-- Scripts. Order matters: data first, then shared helpers, then this page's own scripts -->
+<script src="data/site.js"></script>
+<script src="data/photos.js"></script>
+<script src="js/frames.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/reveal.js"></script>
+<script src="js/page-header.js"></script>
+<script src="js/services-page.js"></script>
+<!-- <script src="js/closing-cta.js"></script> -->
+</body>
+</html>
